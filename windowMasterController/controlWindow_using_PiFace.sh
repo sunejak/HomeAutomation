@@ -9,10 +9,10 @@
 
 # using pin 28 and pin 29
 #
-if [ -z "$1" ]; then
-  echo "Provide a URL "
-  exit 1
-fi
+# if [ -z "$1" ]; then
+#  echo "Provide a URL "
+#  exit 1
+# fi
 #
 gpio -x mcp23s17:100:0:0 mode 108 in
 gpio -x mcp23s17:100:0:0 mode 108 up
