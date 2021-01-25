@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# convert temperature to a 3 decimal number
+# convert temperature to a 3 decimal number and a preceding zero if needed.
 #
 temperature=$(echo "scale=3; $(cat /sys/bus/w1/devices/28-3c01d607bdc0/temperature)/1000" | bc -l | awk '{printf "%.3f\n", $0}')
 #

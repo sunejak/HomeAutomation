@@ -2,14 +2,14 @@
 #
 # WindowMaster control script
 #
-# using pin 28 and pin 29 for relays and pin 26 aand pin 27 as input, where 0 is a switch pressed.
+# using pin 28 and pin 29 for relays and pin 26 and pin 27 as input, where 0 is a switch pressed.
 #
 # if [ -z "$1" ]; then
 #   echo "Provide a URL "
 #   exit 1
 # fi
 #
-# set pins for input and  output
+# set pins for input and output
 #
 gpio mode 26 in
 gpio mode 27 in
