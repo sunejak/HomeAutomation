@@ -11,11 +11,11 @@ To create a RAM disk, proceed as follows:
 
 Create a mount point:
 
-sudo mkdir /mnt/ramdisk
+* sudo mkdir /mnt/ramdisk
 
 Add it into /etc/fstab, so that a RAM disk is automatically generated upon startup:
 
-sudo vi /etc/fstab
+* sudo vi /etc/fstab
 
 tmpfs /mnt/ramdisk tmpfs nodev,nosuid,size=2M 0 0
 
