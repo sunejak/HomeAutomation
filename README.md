@@ -19,3 +19,11 @@ Add it into /etc/fstab, so that a RAM disk is automatically generated upon start
 
 tmpfs /mnt/ramdisk tmpfs nodev,nosuid,size=2M 0 0
 
+To enable one wire interface
+
+* sudo raspi-config
+* cat /boot/config.txt 
+* sudo modprobe w1-gpio
+* sudo modprobe w1-therm
+* cat /sys/bus/w1/devices/28-3c01d607f0b0/temperature 
+
