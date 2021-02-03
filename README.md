@@ -3,8 +3,8 @@ HomeAutomation
 
 This is the top level for miscellaneous Raspberry PI projects for home automation.
 
-* Heating controller based on current electric price
-* Windowmaster controller
+* A heating controller based on current electric price
+* Window master controller
 * Outdoor light controller based on sunrise and sunset times.
 
 Some controller configurations need temporary storage, so to create a RAM disk, proceed as follows:

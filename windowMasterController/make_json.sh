@@ -1,8 +1,25 @@
 #!/bin/bash
 #
-# convert temperature to a 3 decimal number and a preceding zero if needed.
+# read io pin, and if it failed set it to -100
 #
-temperature=$(echo "scale=3; $(cat /sys/bus/w1/devices/28-3c01d607bdc0/temperature)/1000" | bc -l | awk '{printf "%.3f\n", $0}')
+io=$(gpio read 4) || io=-100;
 #
-echo "{\"date\":\"$(date)\", \"temperature\": $temperature, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"name\":\"rp4\" }" 
-
+# address to one-wire sensor
+#
+sensor=/sys/bus/w1/devices/28-3c01d6075f4c
+#
+# check if sensor is there
+#
+if [ -d ${sensor} ]; then
+#
+# convert temperature to a decimal number, with three decimals and a preceding zero if needed.
+#
+temperature=$(echo "scale=3; $(cat $sensor/temperature)/1000" | bc -l | awk '{printf "%.3f\n", $0}')
+#
+echo "{\"date\":\"$(date)\", \"temperature\": $temperature, \"fan\": $io, \"name\":\"matbod\" }"
+#
+else
+#
+echo "{\"date\":\"$(date)\", \"temperature\": -100, \"fan\": $io, \"name\":\"matbod\" }"
+#
+fi
