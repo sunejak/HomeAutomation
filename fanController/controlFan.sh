@@ -39,14 +39,12 @@ if [ "$currentTime" -gt "$startTime" ] && [ "$currentTime" -lt "$stopTime" ]; th
     # get current temperature
     #
     temperature=$(cat "$sensorDir"/"$sensorName"/temperature);
-    #
     if [ "$temperature" -gt "$limit" ]; then
-    gpio write 4 1
+      gpio write 4 1
+    else
+      gpio write 4 0
     fi
   fi
-  else
-    gpio write 4 0
 fi
-
 
 
