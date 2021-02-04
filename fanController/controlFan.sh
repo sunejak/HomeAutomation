@@ -17,23 +17,30 @@ if [ -z "$3" ]; then
    exit 1
 fi
 limit=$1;
-startTime=$2;
-stopTime=$3;
+startTime=$(date -d $2 '+%s');
+stopTime=$(date -d $3 '+%s');
+currentTime=$(date '+%s');
+#
+# check time window
+#
+if [ "$currentTime" -gt "$startTime" ] && [ "$currentTime" -lt "$stopTime" ]; then
 #
 # assuming one wire sensor
 #
 sensorDir="/sys/bus/w1/devices";
 sensorName=$(ls $sensorDir | grep 28);
 #
-# check if sensor is there
+# check if sensor is present
 #
 if [ -d "$sensorDir"/"${sensorName}" ]; then
 #
-# convert temperature to a decimal number, with three decimals and a preceding zero if needed.
+# get current temperature
 #
-temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | bc -l | awk '{printf "%.2f\n", $0}');
+temperature=$(cat "$sensorDir"/"$sensorName"/temperature);
 echo Current temperature is: $temperature
 #
+fi
+
 fi
 
 
