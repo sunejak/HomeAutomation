@@ -1,7 +1,9 @@
 #
-# A simple controller for WindowMaster motor using Raspberry PI.
+# A simple controller for WindowMaster motor controller using Raspberry PI.
 #
-Requires two push switches for input
-Optionally a temperature probe
-Requires two relays for the motor control
+* Requires two push switches for input (open/close)
+* Optionally a temperature probe
+* Requires two relays for the motor control.
+* Relays are connected in a bridge.
+
 #
