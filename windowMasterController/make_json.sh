@@ -13,11 +13,11 @@ sensorName=$(ls $sensorDir | grep 28);
 #
 # check if sensor is there
 #
-if [ -d "$sensorDir"/"${sensor}" ]; then
+if [ -d "$sensorDir"/"${sensorName}" ]; then
 #
 # convert temperature to a decimal number, with three decimals and a preceding zero if needed.
 #
-temperature=$(echo "scale=3; $(cat "$sensor"/temperature)/1000" | bc -l | awk '{printf "%.2f\n", $0}')
+temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | bc -l | awk '{printf "%.2f\n", $0}')
 #
 echo "{\"date\":\"$(date)\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"fan\": $io, \"name\":\"$name\" }"
 #
