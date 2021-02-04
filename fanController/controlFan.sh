@@ -21,6 +21,8 @@ startTime=$(date -d "$2" '+%s');
 stopTime=$(date -d "$3" '+%s');
 currentTime=$(date '+%s');
 #
+gpio mode 4 out
+#
 # check time window
 #
 if [ "$currentTime" -gt "$startTime" ] && [ "$currentTime" -lt "$stopTime" ]; then
@@ -39,9 +41,11 @@ if [ "$currentTime" -gt "$startTime" ] && [ "$currentTime" -lt "$stopTime" ]; th
     temperature=$(cat "$sensorDir"/"$sensorName"/temperature);
     #
     if [ "$temperature" -gt "$limit" ]; then
-    echo Run Fan
+    gpio write 4 1
     fi
   fi
+  else
+    gpio write 4 0
 fi
 
 
