@@ -8,14 +8,12 @@ io=$(gpio read 4) || io=-127;
 #
 # address to one-wire sensor
 #
-sensor="/sys/bus/w1/devices/28-*"
+sensorDir="/sys/bus/w1/devices";
+sensorName=$(ls $sensorDir | grep 28);
 #
 # check if sensor is there
 #
-if [ -d "${sensor}" ]; then
-  #
-  # find the sensor name
-  sensorName=$(ls "$sensor");
+if [ -d "$sensorDir"/"${sensor}" ]; then
 #
 # convert temperature to a decimal number, with three decimals and a preceding zero if needed.
 #
