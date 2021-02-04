@@ -16,7 +16,7 @@ if [ -z "$3" ]; then
    echo "Provide a stop time (hh:mm)"
    exit 1
 fi
-limit=$(echo "$1 * 1000" | bc );
+limit=$(echo "$1 * 1000" | bc -l | awk '{printf "%.0f\n", $0}' );
 startTime=$(date -d "$2" '+%s');
 stopTime=$(date -d "$3" '+%s');
 currentTime=$(date '+%s');
