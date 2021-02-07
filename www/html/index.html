@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brannhaugen 17</title>
+    <style>
+        body {
+            font-family: Arial,serif;
+            color: black;
+        }
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            overflow-x: hidden;
+            padding-left: 10px;
+            padding-top: 20px;
+        }
+        .left {
+            left: 0;
+            background-color: white;
+        }
+        .right {
+            right: 0;
+            background-color: grey;
+        }
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .centered img {
+            width: 150px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+</div>
+<script>
+    async function getURL(url) {
+        try {
+            let res = await fetch(url);
+            return await res.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function renderUsers() {
+        let pifaceURL = 'http://192.168.1.230/temperature.json';
+        let piface = await getURL(pifaceURL);
+        console.log(piface);
+        let rp4URL = 'http://192.168.1.231/temperature.json';
+        let rp4 = await getURL(rp4URL);
+        console.log(rp4);
+        let garageURL = 'http://192.168.1.232/temperature.json';
+        let garage = await getURL(garageURL);
+        console.log(garage);
+        let matbodURL = 'http://192.168.1.234/temperature.json';
+        let matbod = await getURL(matbodURL);
+        console.log(matbod);
+
+        let text = '{"name": "drive way camera" }';
+        let garagecam = JSON.parse(text);
+        console.log(garagecam);
+        let html = '';
+
+        let htmlSegment = `<div class="split left">
+                       <h3>${piface.name}</h3>
+                       <div class="temperature">Temperature <a href=${pifaceURL}>${piface.temperature}</a></div>
+                       <h3>${rp4.name}</h3>
+                       <div class="temperature">Temperature <a href=${rp4URL}>${rp4.temperature}</a></div>
+                       <div class="motor">Motor A <a href=${rp4URL}>${rp4.motorA}</a></div>
+                       <div class="motor">Motor B <a href=${rp4URL}>${rp4.motorB}</a></div>
+                       <h3>${garage.name}</h3>
+                       <div class="temperature">Temperature <a href=${garageURL}>${garage.temperature}</a></div>
+                       <div class="power">Power <a href=${garageURL}>${garage.power}</a></div>
+                       <div class="light">Lys <a href=${garageURL}>${garage.light}</a></div>
+                       <h3>${matbod.name}</h3>
+                       <div class="temperature">Temperature <a href=${matbodURL}>${matbod.temperature}</a></div>
+                       <div class="fan">Fan <a href=${matbodURL}>${matbod.fan}</a></div>
+                       </div>`;
+        html += htmlSegment;
+
+        htmlSegment = `<div class="split right">
+                         <div class="centered"
+                           <h3>${garagecam.name}</h3>
+                           <div class="cam"><img src="http://192.168.1.233/test_0.jpeg" height="640" width="800" alt="drive way"></div>
+                         </div>
+                       </div>`;
+        html += htmlSegment;
+
+        let container = document.querySelector('.container');
+        container.innerHTML = html;
+    }
+    renderUsers();
+</script>
+<h1>Data</h1>
+</body>
+</html>
+
