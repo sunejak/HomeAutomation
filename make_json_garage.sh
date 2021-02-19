@@ -19,7 +19,7 @@ if [ -d "$sensorDir"/"${sensorName}" ]; then
   #
   temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | bc -l | awk '{printf "%.2f\n", $0}')
   #
-  echo "{\"date\":\"$(date)\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"power\": $(gpio read 3), \"light\": $(gpio read 5), \"name\":\"$name\" }"
+  echo "{\"date\":\"$(date)\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"power\": $(gpio read 3), \"daylight\": $(gpio read 4), \"light\": $(gpio read 5), \"name\":\"$name\" }"
   #
 else
   #
