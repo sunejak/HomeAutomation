@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-name="rp4"
+name="outdoor"
 #
 # read io pin, and if it failed set it to -100
 #
@@ -13,8 +13,11 @@ gpio mode 27 in
 while true;
 do
  io=$(gpio read 27) || io=-127;
- if [ $io -eq 0 ]; then
-   gpio write 29
+ if [ $io -eq 1 ]; then
+   raspistill -n -o /mnt/ramdisk/outdoor_$(date +%Y)_$(date +%b)_$(date +%d)_$(date +%H)$(date +%M).jpeg
+   gpio write 29 0
+   else
+   gpio write 29 1
    fi
 done
 
