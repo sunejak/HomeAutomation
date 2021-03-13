@@ -10,10 +10,11 @@ name="piface"
 #
 sensorDir="/sys/bus/w1/devices";
 sensorName=$(ls $sensorDir | grep 28);
+sensorError=$?
 #
 # check if sensor is there
 #
-if [ -d "$sensorDir"/"${sensorName}" ]; then
+if [ -d "$sensorDir"/"${sensorName}" ] && [ "$sensorError" -eq 0 ] ; then
 #
 # convert temperature to a decimal number, with three decimals and a preceding zero if needed.
 #
