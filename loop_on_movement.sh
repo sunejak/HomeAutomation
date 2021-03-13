@@ -14,7 +14,7 @@ while true;
 do
  io=$(gpio read 27) || io=-127;
  if [ $io -eq 1 ]; then
-   raspistill -n -o /mnt/ramdisk/outdoor_$(date +%Y)_$(date +%b)_$(date +%d)_$(date +%H)$(date +%M).jpeg
+   raspistill -n -o /mnt/ramdisk/outdoor_$(date +%Y)_$(date +%b)_$(date +%d)_$(date +%H)$(date +%M)_$(date +%S).jpeg
    gpio write 29 0
    else
    gpio write 29 1
