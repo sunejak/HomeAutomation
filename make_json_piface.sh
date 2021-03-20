@@ -24,6 +24,6 @@ echo "{\"date\":\"$(date)\", \"sensor\":\"$sensorName\", \"temperature\": $tempe
 #
 else
 #
-echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"name\":\"$name\" }"
+echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio -x mcp23s17:100:0:0 read 100), \"motorB\": $(gpio -x mcp23s17:100:0:0 read 101), \"name\":\"$name\" }"
 #
 fi
