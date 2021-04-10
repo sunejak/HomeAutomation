@@ -2,43 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+<script type="text/javascript" src="includeHTML.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="60">
     <title>Brannhaugen 17</title>
-    <style>
-        body {
-            font-family: Arial,serif;
-            color: black;
-        }
-        .split {
-            height: 100%;
-            width: 50%;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            overflow-x: hidden;
-            padding-left: 10px;
-            padding-top: 20px;
-        }
-        .left {
-            left: 0;
-            background-color: white;
-        }
-        .right {
-            right: 0;
-            background-color: grey;
-        }
-        .centered {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-        .centered img {
-            width: 150px;
-            border-radius: 50%;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
@@ -50,6 +18,9 @@
             return await res.json();
         } catch (error) {
             console.log(error);
+            let text = '{"name": url , "error" : error}';
+            let message = JSON.parse(text);
+            return message;
         }
     }
 
@@ -66,6 +37,9 @@
         let matbodURL = 'http://192.168.1.234/temperature.json';
         let matbod = await getURL(matbodURL);
         console.log(matbod);
+        let outdoorURL = 'http://192.168.1.235/temperature.json';
+        let outdoor = await getURL(outdoorURL);
+        console.log(outdoor);
 
         let text = '{"name": "drive way camera" }';
         let garagecam = JSON.parse(text);
@@ -73,27 +47,34 @@
         let html = '';
 
         let htmlSegment = `<div class="split left">
-                       <h3>${piface.name}</h3>
+			<h3>Links</h3>
+                       <div class="text"><a href='http://192.168.1.23/suntime.log'>Time for sunrise and sunset</a></div>
+                       <div class="text"><a href='http://192.168.1.23/market.log'>High prices</a></div>
+                       <div class="cam"><img src="http://192.168.1.23/plot.png" height="200" width="300" alt="plot of prices"></div>
+                       <h4>${piface.name}&nbsp; ${piface.date}</h4>
                        <div class="temperature">Temperature <a href=${pifaceURL}>${piface.temperature}</a></div>
-                       <h3>${rp4.name}</h3>
+                       <h4>${outdoor.name}&nbsp; ${outdoor.date}</h4>
+                       <div class="temperature">Temperature <a href=${outdoorURL}>${outdoor.temperature}</a></div>
+                       <!-- div class="motor">Motor A <a href=${rp4URL}>${outdoor.motorA}</a></div -->
+                       <!-- div class="motor">Motor B <a href=${rp4URL}>${outdoor.motorB}</a></div -->
+                       <h4>${rp4.name}&nbsp; ${rp4.date}</h4>
                        <div class="temperature">Temperature <a href=${rp4URL}>${rp4.temperature}</a></div>
                        <div class="motor">Motor A <a href=${rp4URL}>${rp4.motorA}</a></div>
                        <div class="motor">Motor B <a href=${rp4URL}>${rp4.motorB}</a></div>
-                       <h3>${garage.name}</h3>
+                       <h4>${garage.name}&nbsp; ${garage.date}</h4>
                        <div class="temperature">Temperature <a href=${garageURL}>${garage.temperature}</a></div>
                        <div class="power">Power <a href=${garageURL}>${garage.power}</a></div>
-                       <div class="light">Lys <a href=${garageURL}>${garage.light}</a></div>
-                       <h3>${matbod.name}</h3>
+                       <div class="daylight">Daylight <a href=${garageURL}>${garage.daylight}</a></div>
+                       <div class="outdoor">Outdoor light <a href=${garageURL}>${garage.light}</a></div>
+                       <h4>${matbod.name}&nbsp; ${matbod.date}</h4>
                        <div class="temperature">Temperature <a href=${matbodURL}>${matbod.temperature}</a></div>
                        <div class="fan">Fan <a href=${matbodURL}>${matbod.fan}</a></div>
                        </div>`;
         html += htmlSegment;
 
         htmlSegment = `<div class="split right">
-                         <div class="centered"
-                           <h3>${garagecam.name}</h3>
-                           <div class="cam"><img src="http://192.168.1.233/test_0.jpeg" height="640" width="800" alt="drive way"></div>
-                         </div>
+                       <h3>${garagecam.name}</h3>
+                       <div class="cam"><img src="http://192.168.1.233/test_0.jpeg" height="640" width="800" alt="drive way"></div>
                        </div>`;
         html += htmlSegment;
 
@@ -102,7 +83,6 @@
     }
     renderUsers();
 </script>
-<h1>Data</h1>
 </body>
 </html>
 
