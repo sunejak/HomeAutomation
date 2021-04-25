@@ -14,7 +14,7 @@
 <script>
     async function getURL(url) {
         try {
-            let res = await fetch(url, { mode: "no-cors"});
+            let res = await fetch(url);
             return await res.json();
         } catch (error) {
             console.log('Failed to fetch: ', url, error);
@@ -38,7 +38,7 @@
         let outdoorURL = 'http://192.168.1.235/temperature.json';
         let outdoor = await getURL(outdoorURL);
         console.log(outdoor);
-        let inverterURL = 'http://192.168.1.108/solar_api/v1/GetInverterRealtimeData.cgi?scope=Device&DataCollection=CommonInverterData&DeviceId=1'
+        let inverterURL = 'http://192.168.1.108/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
 
