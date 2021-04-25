@@ -14,7 +14,7 @@
 <script>
     async function getURL(url) {
         try {
-            let res = await fetch(url);
+            let res = await fetch(url, { mode: "no-cors"});
             return await res.json();
         } catch (error) {
             console.log('Failed to fetch: ', url, error);
