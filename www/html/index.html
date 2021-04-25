@@ -17,10 +17,8 @@
             let res = await fetch(url);
             return await res.json();
         } catch (error) {
-            console.log(error);
-            let text = '{"name": url , "error" : error}';
-            let message = JSON.parse(text);
-            return message;
+            console.log('Failed to fetch: ', url, error);
+            return JSON.parse('{"name": url , "error" : error}');
         }
     }
 
@@ -40,6 +38,9 @@
         let outdoorURL = 'http://192.168.1.235/temperature.json';
         let outdoor = await getURL(outdoorURL);
         console.log(outdoor);
+        let inverterURL = 'http://192.168.1.108/solar_api/v1/GetInverterRealtimeData.cgi?scope=Device&DataCollection=CommonInverterData&DeviceId=1'
+        let inverter = await getURL(inverterURL);
+        console.log(inverter);
 
         let text = '{"name": "drive way camera" }';
         let garagecam = JSON.parse(text);
@@ -55,7 +56,7 @@
                        <div class="temperature">Temperature <a href=${pifaceURL}>${piface.temperature}</a></div>
                        <h4>${outdoor.name}&nbsp; ${outdoor.date}</h4>
                        <div class="temperature">Temperature <a href=${outdoorURL}>${outdoor.temperature}</a></div>
-                       <!-- div class="motor">Motor A <a href=${rp4URL}>${outdoor.motorA}</a></div -->
+                       <div class="motor">Movement <a href=${rp4URL}>${outdoor.motorA}</a></div>
                        <!-- div class="motor">Motor B <a href=${rp4URL}>${outdoor.motorB}</a></div -->
                        <h4>${rp4.name}&nbsp; ${rp4.date}</h4>
                        <div class="temperature">Temperature <a href=${rp4URL}>${rp4.temperature}</a></div>
