@@ -55,6 +55,8 @@
 
                        <h4>Inverter ${inverter.Head.Timestamp}</h4>
                        <div class="inverter">Status ${inverter.Body.Data.DeviceStatus.StatusCode}</div>
+                       <div class="inverter">Current Power ${inverter.Body.Data.PAC.Value} ${inverter.Body.Data.PAC.Unit}</div>
+                       <div class="inverter">Todays production ${inverter.Body.Data.DAY_ENERGY.Value} ${inverter.Body.Data.DAY_ENERGY.Unit}</div>
 
                        <h4>${piface.name}&nbsp; ${piface.date}</h4>
                        <div class="temperature">Temperature <a href=${pifaceURL}>${piface.temperature}</a></div>
