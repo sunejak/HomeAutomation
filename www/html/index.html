@@ -41,6 +41,26 @@
         let inverterURL = 'http://192.168.1.23/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
+        switch (true) {
+            case inverter.status === 7:
+                inverter.text = 'Running';
+                break;
+            case inverter.status >= 0 && inverter.status <= 6:
+                inverter.text = 'Startup';
+                break;
+            case inverter.status === 8:
+                inverter.text = 'Standby';
+                break;
+            case inverter.status === 9:
+                inverter.text = 'Boot loading';
+                break;
+            case inverter.status === 10:
+                inverter.text = 'Error ';
+                break;
+            default:
+                inverter.text = 'Unknown status: ' + inverter.status;
+                break;
+        }
 
         let text = '{"name": "drive way camera" }';
         let garagecam = JSON.parse(text);
@@ -54,7 +74,7 @@
                        <div class="cam"><img src="http://192.168.1.23/plot.png" height="200" width="300" alt="plot of prices"></div>
 
                        <h4>Inverter ${inverter.Head.Timestamp}</h4>
-                       <div class="inverter">Status ${inverter.Body.Data.DeviceStatus.StatusCode}</div>
+                       <div class="inverter">Status ${inverter.text}</div>
                        <div class="inverter">Current Power ${inverter.Body.Data.PAC.Value} ${inverter.Body.Data.PAC.Unit}</div>
                        <div class="inverter">Todays production ${inverter.Body.Data.DAY_ENERGY.Value} ${inverter.Body.Data.DAY_ENERGY.Unit}</div>
 
