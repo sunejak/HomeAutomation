@@ -18,7 +18,7 @@
             return await res.json();
         } catch (error) {
             console.log('Failed to fetch: ', url, error);
-            return JSON.parse('{"name": url , "error" : error}');
+            return JSON.parse('{"name": url , "date" : "unknown", "error" : error}');
         }
     }
 
@@ -41,24 +41,32 @@
         let inverterURL = 'http://192.168.1.23/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
+        inverter.currentPower = '';
+        inverter.currentPowerUnit = '';
+        inverter.dayEnergy = '';
+        inverter.dayEnergyUnit = '';
         switch (true) {
-            case inverter.status === 7:
+            case inverter.Body.Data.DeviceStatus.StatusCode === 7:
                 inverter.text = 'Running';
+                inverter.currentPower = inverter.Body.Data.PAC.Value;
+                inverter.currentPowerUnit = inverter.Body.Data.PAC.Unit;
+                inverter.dayEnergy = inverter.Body.Data.DAY_ENERGY.Value;
+                inverter.dayEnergyUnit = inverter.Body.Data.DAY_ENERGY.Unit;
                 break;
-            case inverter.status >= 0 && inverter.status <= 6:
+            case inverter.Body.Data.DeviceStatus.StatusCode >= 0 && inverter.Body.Data.DeviceStatus.StatusCode <= 6:
                 inverter.text = 'Startup';
                 break;
-            case inverter.status === 8:
+            case inverter.Body.Data.DeviceStatus.StatusCode === 8:
                 inverter.text = 'Standby';
                 break;
-            case inverter.status === 9:
+            case inverter.Body.Data.DeviceStatus.StatusCode === 9:
                 inverter.text = 'Boot loading';
                 break;
-            case inverter.status === 10:
+            case inverter.Body.Data.DeviceStatus.StatusCode === 10:
                 inverter.text = 'Error ';
                 break;
             default:
-                inverter.text = 'Unknown status: ' + inverter.status;
+                inverter.text = 'Unknown status: ' + inverter.Body.Data.DeviceStatus.StatusCode;
                 break;
         }
 
@@ -75,8 +83,8 @@
 
                        <h4>Inverter ${inverter.Head.Timestamp}</h4>
                        <div class="inverter">Status ${inverter.text}</div>
-                       <div class="inverter">Current Power ${inverter.Body.Data.PAC.Value} ${inverter.Body.Data.PAC.Unit}</div>
-                       <div class="inverter">Todays production ${inverter.Body.Data.DAY_ENERGY.Value} ${inverter.Body.Data.DAY_ENERGY.Unit}</div>
+                       <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
+                       <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
 
                        <h4>${piface.name}&nbsp; ${piface.date}</h4>
                        <div class="temperature">Temperature <a href=${pifaceURL}>${piface.temperature}</a></div>
