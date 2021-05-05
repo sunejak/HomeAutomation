@@ -43,15 +43,13 @@
         console.log(inverter);
         inverter.currentPower = '';
         inverter.currentPowerUnit = '';
-        inverter.dayEnergy = '';
-        inverter.dayEnergyUnit = '';
+        inverter.dayEnergy = inverter.Body.Data.DAY_ENERGY.Value;
+        inverter.dayEnergyUnit = inverter.Body.Data.DAY_ENERGY.Unit;
         switch (true) {
             case inverter.Body.Data.DeviceStatus.StatusCode === 7:
                 inverter.text = 'Running';
                 inverter.currentPower = inverter.Body.Data.PAC.Value;
                 inverter.currentPowerUnit = inverter.Body.Data.PAC.Unit;
-                inverter.dayEnergy = inverter.Body.Data.DAY_ENERGY.Value;
-                inverter.dayEnergyUnit = inverter.Body.Data.DAY_ENERGY.Unit;
                 break;
             case inverter.Body.Data.DeviceStatus.StatusCode >= 0 && inverter.Body.Data.DeviceStatus.StatusCode <= 6:
                 inverter.text = 'Startup';
