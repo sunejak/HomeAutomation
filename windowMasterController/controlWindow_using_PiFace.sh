@@ -26,6 +26,9 @@ gpio -x mcp23s17:100:0:0 mode 100 out
 gpio -x mcp23s17:100:0:0 mode 101 out
 gpio -x mcp23s17:100:0:0 mode 102 out
 gpio -x mcp23s17:100:0:0 mode 103 out
+
+gpio mode 5 out
+gpio mode 6 out
 #
 debug=true
 # 
@@ -52,6 +55,8 @@ reset)
 read)
   echo SW0: $(gpio -x mcp23s17:100:0:0 read 108);
   echo SW1: $(gpio -x mcp23s17:100:0:0 read 109);
+  echo SW2: $(gpio -x mcp23s17:100:0:0 read 110);
+  echo SW3: $(gpio -x mcp23s17:100:0:0 read 111);
 ;;
 debug)
   debug=false;
@@ -65,8 +70,10 @@ loop)
   gpio -x mcp23s17:100:0:0 write 101 $sw1
   sw2=$(gpio -x mcp23s17:100:0:0 read 110);
   gpio -x mcp23s17:100:0:0 write 102 $sw2
+  gpio write 5 $sw2
   sw3=$(gpio -x mcp23s17:100:0:0 read 111);
   gpio -x mcp23s17:100:0:0 write 103 $sw3
+  gpio write 6 $sw3
   if [ $debug == true ] 
     then
     echo Input:  $sw0 $sw1 $sw2 $sw3 ; fi
