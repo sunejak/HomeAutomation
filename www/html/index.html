@@ -18,7 +18,8 @@
             return await res.json();
         } catch (error) {
             console.log('Failed to fetch: ', url, error);
-            return JSON.parse('{"name": url , "date" : "unknown", "error" : error}');
+            const errorRes = '{"url":"' + url + '", "date": null, "error":"' + error + '"}';
+            return JSON.parse(errorRes);
         }
     }
 
