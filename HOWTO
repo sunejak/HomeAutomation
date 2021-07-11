@@ -1,0 +1,12 @@
+#
+#
+curl 192.168.1.23/market.log | cut -d'+' -f2 | cut -d' ' -f4 | sort -n | uniq -c > midtNorge.data
+#
+# add hours without data
+#
+gnuplot> set xlabel "Klokketime"
+gnuplot> set ylabel "Frekvens"
+gnuplot> set xrange[0:24]
+gnuplot> plot 'midtNorge.data' using 2:1 with lp
+
+
