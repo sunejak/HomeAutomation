@@ -33,4 +33,7 @@ body {
     width: 150px;
     border-radius: 50%;
 }
+div.text {
+    font-size: small;
+}
 
