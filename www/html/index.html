@@ -39,6 +39,9 @@
         let outdoorURL = 'http://192.168.1.235/temperature.json';
         let outdoor = await getURL(outdoorURL);
         console.log(outdoor);
+        let bedroomURL = 'http://192.168.1.236/temperature.json';
+        let bedroom = await getURL(bedroomURL);
+        console.log(bedroom);
         let inverterURL = 'http://192.168.1.23/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
@@ -87,6 +90,9 @@
 
                        <h4>PiFace ${piface.name}&nbsp; ${piface.date}</h4>
                        <div class="temperature">Temperature <a href=${pifaceURL}>${piface.temperature}</a></div>
+
+                       <h4>Bedroom ${bedroom.name}&nbsp; ${bedroom.date}</h4>
+                       <div class="temperature">Temperature <a href=${bedroomURL}>${bedroom.temperature}</a></div>
 
                        <h4>Outdoor ${outdoor.name}&nbsp; ${outdoor.date}</h4>
                        <div class="temperature">Temperature <a href=${outdoorURL}>${outdoor.temperature}</a></div>

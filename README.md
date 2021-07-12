@@ -52,6 +52,15 @@ Configure the webserver for local access, by adding this in the nginx configurat
       return 200;
     }
 
+Add a crontab to read the temperature as often as needed. "* * * * *" is every minute.
+
+* cd /mnt/ramdisk ;  /home/pi/2021/HomeAutomation/make_json_rp4.sh > temperature.json
+    
+Add a link for the webserver in the /var/www/html directory, you also need to fix some permissions.
+
+* sudo ln -s /mnt/ramdisk/temperature.json
+
+
 
 
 
