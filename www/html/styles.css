@@ -36,4 +36,11 @@ body {
 div.text {
     font-size: small;
 }
-
+div.inverter {
+    font-size: small;
+    color: blue;
+}
+div.temperature {
+    font-size: small;
+    color: red;
+}
