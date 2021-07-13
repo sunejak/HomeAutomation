@@ -44,3 +44,6 @@ div.temperature {
     font-size: small;
     color: red;
 }
+h4 {
+    padding: 5px;
+}
