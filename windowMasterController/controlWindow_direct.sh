@@ -37,6 +37,7 @@ case $variable in
 open)
   while [ $count -le 100 ]
   do
+    echo $count;
   gpio write 3 1
   gpio write 4 0
   gpio write 5 1
@@ -48,6 +49,7 @@ open)
 close)
   while [ $count -le 100 ]
   do
+    echo $count;
   gpio write 3 0
   gpio write 4 1
   gpio write 5 0
@@ -73,7 +75,7 @@ run)
 ;;
 loop)
   while (true) do
-  echo $(gpio read 26) $(gpio read 27) $(gpio read 28) $(gpio read 29);
+  echo $(gpio read 26) $(gpio read 27) $(gpio read 28) $(gpio read 29) $count;
   done
 ;;
 *)
