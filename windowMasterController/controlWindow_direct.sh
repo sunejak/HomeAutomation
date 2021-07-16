@@ -8,6 +8,12 @@
 #   echo "Provide a URL "
 #   exit 1
 # fi
+function resetMotors() {
+  gpio write 3 0
+  gpio write 4 0
+  gpio write 5 0
+  gpio write 6 0
+}
 #
 # set pins for input and output
 #
@@ -23,10 +29,7 @@ count=0;
 #
 # initialize
 #
-gpio write 3 0
-gpio write 4 0
-gpio write 5 0
-gpio write 6 0
+resetMotors;
 #
 echo Valid commands are: open close loop run reset
 # 
@@ -44,6 +47,7 @@ open)
   gpio write 6 0
   ((count++));
   done;
+  resetMotors;
   count=0;
 ;;
 close)
@@ -56,13 +60,11 @@ close)
   gpio write 6 1
   ((count++))
   done;
+  resetMotors;
   count=0;
 ;;
 reset)
-  gpio write 3 0
-  gpio write 4 0
-  gpio write 5 0
-  gpio write 6 0
+  resetMotors;
   count=0;
 ;;
 run)
