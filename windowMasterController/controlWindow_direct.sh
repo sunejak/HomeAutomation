@@ -19,6 +19,7 @@ gpio mode 3 out
 gpio mode 4 out
 gpio mode 5 out
 gpio mode 6 out
+count=0;
 #
 # initialize
 #
@@ -34,22 +35,33 @@ do
 read variable
 case $variable in
 open)
+  while [ $count -le 100 ]
+  do
   gpio write 3 1
   gpio write 4 0
   gpio write 5 1
   gpio write 6 0
+  ((count++));
+  done;
+  count=0;
 ;;
 close)
+  while [ $count -le 100 ]
+  do
   gpio write 3 0
   gpio write 4 1
-  gpio write 5 1
-  gpio write 6 0
+  gpio write 5 0
+  gpio write 6 1
+  ((count++))
+  done;
+  count=0;
 ;;
 reset)
   gpio write 3 0
   gpio write 4 0
   gpio write 5 0
   gpio write 6 0
+  count=0;
 ;;
 run)
   while (true) do
