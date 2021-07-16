@@ -13,13 +13,19 @@
 #
 gpio mode 26 in
 gpio mode 27 in
-gpio mode 28 out
-gpio mode 29 out
+gpio mode 28 in
+gpio mode 29 in
+gpio mode 3 out
+gpio mode 4 out
+gpio mode 5 out
+gpio mode 6 out
 #
 # initialize
 #
-gpio write 28 0
-gpio write 29 0
+gpio write 3 0
+gpio write 4 0
+gpio write 5 0
+gpio write 6 0
 #
 echo Valid commands are: open close loop run reset
 # 
@@ -28,26 +34,34 @@ do
 read variable
 case $variable in
 open)
-  gpio write 28 1
-  gpio write 29 0
+  gpio write 3 1
+  gpio write 4 0
+  gpio write 5 1
+  gpio write 6 0
 ;;
 close)
-  gpio write 28 0
-  gpio write 29 1
+  gpio write 3 0
+  gpio write 4 1
+  gpio write 5 1
+  gpio write 6 0
 ;;
 reset)
-  gpio write 28 0
-  gpio write 29 0
+  gpio write 3 0
+  gpio write 4 0
+  gpio write 5 0
+  gpio write 6 0
 ;;
 run)
   while (true) do
-  if [ $(gpio read 26) -eq 0 ] ; then gpio write 28 1; else gpio write 28 0; fi
-  if [ $(gpio read 27) -eq 0 ] ; then gpio write 29 1; else gpio write 29 0; fi
+  if [ $(gpio read 26) -eq 0 ] ; then gpio write 3 1; else gpio write 3 0; fi
+  if [ $(gpio read 27) -eq 0 ] ; then gpio write 4 1; else gpio write 4 0; fi
+  if [ $(gpio read 28) -eq 0 ] ; then gpio write 5 1; else gpio write 5 0; fi
+  if [ $(gpio read 29) -eq 0 ] ; then gpio write 6 1; else gpio write 6 0; fi
   done
 ;;
 loop)
   while (true) do
-  echo $(gpio read 26) $(gpio read 27);
+  echo $(gpio read 26) $(gpio read 27) $(gpio read 28) $(gpio read 29);
   done
 ;;
 *)
