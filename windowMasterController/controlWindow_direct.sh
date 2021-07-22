@@ -38,7 +38,7 @@ do
 read variable
 case $variable in
 open)
-  while [ $count -le 100 ]
+  while [ $count -le 1000 ]
   do
     echo $count;
   gpio write 3 1
@@ -51,7 +51,7 @@ open)
   count=0;
 ;;
 close)
-  while [ $count -le 100 ]
+  while [ $count -le 1000 ]
   do
     echo $count;
   gpio write 3 0
@@ -69,10 +69,16 @@ reset)
 ;;
 run)
   while (true) do
-  if [ $(gpio read 26) -eq 0 ] ; then gpio write 3 1; else gpio write 3 0; fi
-  if [ $(gpio read 27) -eq 0 ] ; then gpio write 4 1; else gpio write 4 0; fi
-  if [ $(gpio read 28) -eq 0 ] ; then gpio write 5 1; else gpio write 5 0; fi
-  if [ $(gpio read 29) -eq 0 ] ; then gpio write 6 1; else gpio write 6 0; fi
+  if [ $(gpio read 26) -eq 0 ] ;
+  then gpio write 3 1;
+  else gpio write 3 0;
+  fi
+  if [ $(gpio read 27) -eq 0 ] ;
+  then gpio write 4 1; else gpio write 4 0; fi
+  if [ $(gpio read 28) -eq 0 ] ;
+  then gpio write 5 1; else gpio write 5 0; fi
+  if [ $(gpio read 29) -eq 0 ] ;
+  then gpio write 6 1; else gpio write 6 0; fi
   done
 ;;
 loop)
