@@ -2,18 +2,22 @@
 #
 # typical usage would be: ./make_json_device roomName 28 29
 #
+# creates a JSON response with temperature and io pins
+#
+# {"date":"Sun 25 Jul 2021 07:17:02 PM CEST", "sensor":"28-3c01d0753607", "temperature": 23.69, "pinA": 0, "pinB": 0, "name":"Here" }
+#
 if [ -z "$1" ]; then
   echo "Provide a device name"
   exit 1
 fi
 nameDevice=$1
 if [ -z "$2" ]; then
-  echo "Provide a gpio pin number"
+  echo "Provide a gpio pin number for pin A"
   exit 1
 fi
 pinA=$2
 if [ -z "$3" ]; then
-  echo "Provide a gpio pin number"
+  echo "Provide a gpio pin number for pin B"
   exit 1
 fi
 pinB=$3
