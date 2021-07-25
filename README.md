@@ -37,7 +37,7 @@ Then install a webserver
 
 * sudo apt install nginx
 
-Configure the webserver for local access, by adding this in the nginx configuration, inside the "location" directive:
+Configure the webserver for local access, by adding this in the nginx configuration "/etc/nginx/sites-available/default" file, inside the "location" directive:
 
     # Simple requests
     if ($request_method ~* "(GET|POST)") {
