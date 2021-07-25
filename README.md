@@ -37,7 +37,7 @@ Then install a webserver
 
 * sudo apt install nginx
 
-Configure the webserver for local access, by adding this in the nginx configuration, inside the "location" directive:
+Configure the webserver for local access, by adding this in the nginx configuration "/etc/nginx/sites-available/default" file, inside the "location" directive:
 
     # Simple requests
     if ($request_method ~* "(GET|POST)") {
@@ -51,6 +51,8 @@ Configure the webserver for local access, by adding this in the nginx configurat
       add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
       return 200;
     }
+    
+* To restart: "sudo systemctl restart nginx"
 
 Add a crontab to read the temperature as often as needed. "* * * * *" is every minute.
 
