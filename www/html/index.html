@@ -24,7 +24,7 @@
     }
 
     async function renderUsers() {
-        let deviceListURL = 'localhost/devices.txt'
+        let deviceListURL = 'http://localhost/devices.txt'
         let deviceList = await fetch(deviceListURL);
         console.log(deviceList);
 
@@ -81,7 +81,7 @@
         console.log(garagecam);
         let html = '';
 
-        let htmlSegment = `<div class="split left">
+        let htmlSegmentLeft = `<div class="split left">
 			<h4>Links</h4>
                        <div class="text"><a href='http://192.168.1.23/suntime.log'>Time for sunrise and sunset</a></div>
                        <div class="text"><a href='http://192.168.1.23/market.log'>High prices</a></div>
@@ -118,13 +118,13 @@
                        <div class="temperature">Temperature <a href=${matbodURL}>${matbod.temperature}</a></div>
                        <div class="fan">Fan <a href=${matbodURL}>${matbod.fan}</a></div>
                        </div>`;
-        html += htmlSegment;
+        html += htmlSegmentLeft;
 
-        htmlSegment = `<div class="split right">
+        let htmlSegmentRight = `<div class="split right">
                        <h4>${garagecam.name}</h4>
                        <div class="cam"><img src="http://192.168.1.233/test_0.jpeg" height="640" width="800" alt="drive way"></div>
                        </div>`;
-        html += htmlSegment;
+        html += htmlSegmentRight;
 
         let container = document.querySelector('.container');
         container.innerHTML = html;
