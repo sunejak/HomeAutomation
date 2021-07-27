@@ -38,7 +38,7 @@ do
 read variable
 case $variable in
 open)
-  while [ $count -le 1000 ]
+  while [ $count -le 500 ]
   do
     echo $count;
   gpio write 3 1
@@ -51,7 +51,7 @@ open)
   count=0;
 ;;
 close)
-  while [ $count -le 1000 ]
+  while [ $count -le 500 ]
   do
     echo $count;
   gpio write 3 0
