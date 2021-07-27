@@ -24,7 +24,7 @@
     }
 
     async function renderUsers() {
-        let deviceListURL = 'http://localhost/devices.txt'
+        let deviceListURL = '/devices.txt';
         let deviceList = await fetch(deviceListURL);
         console.log(deviceList);
 
