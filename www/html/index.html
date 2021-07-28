@@ -72,7 +72,6 @@
                 <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
                 <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
                 </div>`;
-
         html += htmlSegmentLeft;
 
         // loop through the device list
@@ -86,7 +85,7 @@
             <div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a></div>
             </div>`;
 
-            html += htmlSegmentBuild;
+            // html += htmlSegmentBuild;
         }
 
         let htmlSegmentRight = `<div class="split right">
