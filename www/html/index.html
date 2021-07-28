@@ -97,6 +97,12 @@
             if(response.hasOwnProperty('fan')){
                 htmlSegmentBuild += `<div class="motor">Fan <a href=${deviceURL}>${response.fan}</a></div>`;
             }
+            if(response.hasOwnProperty('power')){
+                htmlSegmentBuild += `<div class="motor">Power <a href=${deviceURL}>${response.power}</a></div>`;
+            }
+            if(response.hasOwnProperty('daylight')){
+                htmlSegmentBuild += `<div class="motor">Daylight <a href=${deviceURL}>${response.daylight}</a></div>`;
+            }
             html += htmlSegmentBuild;
         }
 
