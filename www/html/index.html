@@ -31,7 +31,7 @@
         // loop through the list
         for (var i = 0; i < deviceLength; i++){
             console.log('For entry: ', i, ' ', deviceList[i].address, ' with name: ', deviceList[i].name);
-            let response = await getURL(deviceList[i].address);
+            let response = await getURL('http://' + deviceList[i].address);
             console.log(response);
         }
 
