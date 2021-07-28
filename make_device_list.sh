@@ -15,7 +15,7 @@ arrayLength=${#array[@]}
 # use for loop to read all values and indexes
 for (( i=0; i<${arrayLength}; i=i+2 ));
 do
-  echo "{\"IP\": \"${array[$i]}\" ,\"name\": \"${array[$i+1]}\" }"
+  echo "{\"address\": \"${array[$i]}\" ,\"name\": \"${array[$i+1]}\" }"
   let "n = $i + 2" ;
   if [ $n -eq ${arrayLength} ]
     then

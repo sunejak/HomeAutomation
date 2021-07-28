@@ -30,9 +30,9 @@
         console.log('Got: ' ,deviceList, '  with ', deviceLength, 'entries');
         // loop through the list
         for (var i = 0; i < deviceLength; i++){
-
-            console.log('For entry: ', i, ' ', deviceList[i].URL, ' with name: ', deviceList[i].name);
-
+            console.log('For entry: ', i, ' ', deviceList[i].address, ' with name: ', deviceList[i].name);
+            let response = await getURL(deviceList[i].address);
+            console.log(response);
         }
 
 
