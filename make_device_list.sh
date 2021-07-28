@@ -16,7 +16,8 @@ arrayLength=${#array[@]}
 for (( i=0; i<${arrayLength}; i=i+2 ));
 do
   echo "{ \"IP\": \"${array[$i]}\" , \"name\": \"${array[$i+1]}\" } "
-  if [ $i -eq ${arrayLength} ]
+  n=$(i+2);
+  if [ $n -eq ${arrayLength} ]
     then
       echo " "
       else
