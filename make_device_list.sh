@@ -15,7 +15,11 @@ arrayLength=${#array[@]}
 # use for loop to read all values and indexes
 for (( i=0; i<${arrayLength}; i=i+2 ));
 do
-  echo "\"IP\": \"${array[$i]}\" , \"name\": \"${array[$i+1]}\", "
+  echo "{ \"IP\": \"${array[$i]}\" , \"name\": \"${array[$i+1]}\" } "
+  if [ $i -lt ${arrayLength} ]
+    then
+      echo ","
+  fi
 done
 #
 echo ']';
