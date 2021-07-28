@@ -59,20 +59,19 @@
                 break;
         }
 
-        let html = '';
+        let html = '<div class="split left">';
 
-        let htmlSegmentLeft = `<div class="split left">
+        let htmlSegmentLeft = `
 			<h4>Links</h4>
-                       <div class="text"><a href='http://192.168.1.23/suntime.log'>Time for sunrise and sunset</a></div>
-                       <div class="text"><a href='http://192.168.1.23/market.log'>High prices</a></div>
-                       <div class="cam"><img src="http://192.168.1.23/plot.png" height="200" width="300" alt="plot of prices"></div>
+            <div class="text"><a href='http://192.168.1.23/suntime.log'>Time for sunrise and sunset</a></div>
+            <div class="text"><a href='http://192.168.1.23/market.log'>High prices</a></div>
+            <div class="cam"><img src="http://192.168.1.23/plot.png" height="200" width="300" alt="plot of prices"></div>
 
-                <h5>Inverter ${inverter.Head.Timestamp}</h5>
-                <div class="inverter">Status ${inverter.text}</div>
-                <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
-                <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
-                </div>`;
-        html += htmlSegmentLeft;
+            <h5>Inverter ${inverter.Head.Timestamp}</h5>
+            <div class="inverter">Status ${inverter.text}</div>
+            <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
+            <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>`;
+        html += htmlSegmentLeft ;
 
         // loop through the device list
         for (var i = 0; i < deviceLength; i++){
@@ -87,6 +86,8 @@
 
             // html += htmlSegmentBuild;
         }
+
+        html += '</div>';
 
         let htmlSegmentRight = `<div class="split right">
                        <h4>Driveway</h4>
