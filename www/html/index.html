@@ -79,12 +79,11 @@
             let response = await getURL(deviceURL);
             console.log(response);
 
-            let htmlSegmentBuild = `<div class="split left">
-            <h5>${deviceList[i].name}&nbsp; ${response.date}</h5>
-            <div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a></div>
-            </div>`;
-
-            // html += htmlSegmentBuild;
+            let htmlSegmentBuild =
+                `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>
+                 <div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a></div>
+            `;
+            html += htmlSegmentBuild;
         }
 
         html += '</div>';
