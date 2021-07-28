@@ -80,9 +80,15 @@
             console.log(response);
 
             let htmlSegmentBuild =
-                `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>
-                 <div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a></div>
-            `;
+                `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>`
+                + `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a></div>`;
+            if(response.motorA){
+                htmlSegmentBuild += `<div class="motor">Motor A <a href=${deviceURL}>${response.motorA}</a></div>`;
+            }
+            if(response.motorB){
+                htmlSegmentBuild += `<div class="motor">Motor B <a href=${deviceURL}>${response.motorB}</a></div>`;
+            }
+
             html += htmlSegmentBuild;
         }
 
