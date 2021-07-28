@@ -26,7 +26,15 @@
     async function renderUsers() {
         let deviceListURL = '/devices.json';
         let deviceList = await getURL(deviceListURL);
-        console.log(deviceList);
+        let deviceLength = deviceList.length;
+        console.log('Got: ' ,deviceList, '  with ', deviceLength, 'entries');
+        // loop through the list
+        for (var i = 0; i < deviceLength; i++){
+
+            console.log('For entry: ', i, ' ', deviceList[i].URL, ' with name: ', deviceList[i].name);
+
+        }
+
 
         let pifaceURL = 'http://192.168.1.230/temperature.json';
         let piface = await getURL(pifaceURL);
