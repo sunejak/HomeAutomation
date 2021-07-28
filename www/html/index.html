@@ -24,8 +24,8 @@
     }
 
     async function renderUsers() {
-        let deviceListURL = '/devices.txt';
-        let deviceList = await fetch(deviceListURL);
+        let deviceListURL = '/devices.json';
+        let deviceList = await getURL(deviceListURL);
         console.log(deviceList);
 
         let pifaceURL = 'http://192.168.1.230/temperature.json';
@@ -46,7 +46,7 @@
         let bedroomURL = 'http://192.168.1.236/temperature.json';
         let bedroom = await getURL(bedroomURL);
         console.log(bedroom);
-        let inverterURL = 'http://192.168.1.23/inverter.json'
+        let inverterURL = '/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
         inverter.currentPower = '';
