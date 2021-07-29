@@ -101,7 +101,7 @@
                 htmlSegmentBuild += `<div class="motor">Power <a href=${deviceURL}>${response.power}</a></div>`;
             }
             if(response.hasOwnProperty('daylight')){
-                htmlSegmentBuild += `<div class="motor">Daylight <a href=${deviceURL}>${response.daylight}</a></div>`;
+                htmlSegmentBuild += `<div class="pin">Daylight <a href=${deviceURL}>${response.daylight}</a></div>`;
             }
             html += htmlSegmentBuild;
         }
