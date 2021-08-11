@@ -31,16 +31,17 @@ count=0
 #
 resetMotors
 #
-echo Valid commands are: open close loop run reset
+echo Valid commands are: open close loop run reset $1 $2 $#
+cnt=$#
+cmd=$1
 #
 while true; do
-  echo .
+#  echo .
 
-  if [ -z "$1" ]; then
-      variable=$1;
-      unset "$1";
+  if [ "$cnt" -eq 1 ]; then
+      variable=$cmd;
     else
-      read -r variable
+      read variable
   fi
   case $variable in
   open)
