@@ -8,6 +8,11 @@
 #   echo "Provide a URL "
 #   exit 1
 # fi
+#
+# Add this to your crontab
+#
+# @reboot		/home/pi/2021/HomeAutomation/windowMasterController/controlWindow_direct.sh run
+#
 function resetMotors() {
   gpio write 3 0
   gpio write 4 0
