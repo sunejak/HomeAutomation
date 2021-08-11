@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 # WindowMaster control script
-cmd=$1
 #
 # using pin 28 and pin 29 for relays and pin 26 and pin 27 as input, where 0 is a switch pressed.
 #
@@ -35,9 +34,11 @@ resetMotors
 echo Valid commands are: open close loop run reset
 #
 while true; do
-  if [ -z "$cmd" ]; then
-      variable=$cmd;
-      unset "$cmd";
+  echo .
+
+  if [ -z "$1" ]; then
+      variable=$1;
+      unset "$1";
     else
       read -r variable
   fi
