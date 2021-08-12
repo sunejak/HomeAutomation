@@ -45,6 +45,7 @@ while true; do
 
   if [ "$cnt" -eq 1 ]; then
       variable=$cmd;
+      cnt=0;
     else
       read variable
   fi
