@@ -4,11 +4,6 @@
 #
 # using pin 28 and pin 29 for relays and pin 26 and pin 27 as input, where 0 is a switch pressed.
 #
-# if [ -z "$1" ]; then
-#   echo "Provide a URL "
-#   exit 1
-# fi
-#
 # Add this to your crontab
 #
 # @reboot		/home/pi/2021/HomeAutomation/windowMasterController/controlWindow_direct.sh run
