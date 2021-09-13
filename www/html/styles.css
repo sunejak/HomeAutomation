@@ -6,7 +6,7 @@ body {
 
 .split {
     height: 100%;
-    width: 50%;
+    width: 33%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -16,6 +16,10 @@ body {
 }
 .left {
     left: 0;
+    background-color: antiquewhite;
+}
+.mid {
+    right: 0;
     background-color: white;
 }
 .right {
