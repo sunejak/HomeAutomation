@@ -60,7 +60,8 @@
         }
 
         let html = '<div class="split left">';
-        let htmlSegmentLeft = `
+        let htmlSegmentLeftLeft = `
+            <div class="split left">
 			<h4>Links</h4>
             <div class="text"><a href='http://192.168.1.23/suntime.log'>Time for sunrise and sunset</a></div>
             <div class="text"><a href='http://192.168.1.23/market.log'>High prices</a></div>
@@ -70,11 +71,11 @@
             <div class="inverter">Status ${inverter.text}</div>
             <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
             <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>`;
-        html += htmlSegmentLeft ;
+        html += htmlSegmentLeftLeft ;
         html += '</div>';
 
         // loop through the device list
-        let htmlSegmentMid = `<div class="split mid">`
+        let htmlSegmentLeftRight = `<div class="split right">`
         for (let i = 0; i < deviceLength; i++){
             let deviceURL = 'http://' + deviceList[i].address + '/temperature.json';
             let response = await getURL(deviceURL);
@@ -104,9 +105,9 @@
             if(response.hasOwnProperty('daylight')){
                 htmlSegmentBuild += `<div class="pin">Daylight <a href=${deviceURL}>${response.daylight}</a></div>`;
             }
-            htmlSegmentMid += htmlSegmentBuild;
+            htmlSegmentLeftRight += htmlSegmentBuild;
         }
-        html += htmlSegmentMid;
+        html += htmlSegmentLeftRight;
         html += '</div>';
 
         let htmlSegmentRight = `<div class="split right">
@@ -114,6 +115,8 @@
                        <div class="cam"><img src="http://192.168.1.233/test_0.jpeg" height="640" width="800" alt="drive way"></div>
                        </div>`;
         html += htmlSegmentRight;
+
+        html += '</div>';
 
         let container = document.querySelector('.container');
         container.innerHTML = html;
