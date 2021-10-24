@@ -43,7 +43,7 @@ exit 0
 fi
 
 if [ "$device" == "I2C" ]; then
-  readonly I2CAddress=0x48 # Slave address with A0, A1, and A2 set to 0v (ground).
+  readonly I2CAddress=0x48 # I2C device from "i2cdetect -y 1" command.
   # for AT30TSE754A added precision is available by setting the precision bits
   # i2cset -y 1 $I2CAddress 0x01 0x0060 w
   tmp_raw=$(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
