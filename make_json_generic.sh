@@ -46,21 +46,18 @@ if [ "$device" == "I2C" ]; then
   readonly I2CAddress=0x48 # I2C device from "i2cdetect -y 1" command.
   # for AT30TSE754A added precision is available by setting the precision bits
   # i2cset -y 1 $I2CAddress 0x01 0x0060 w
-  tmp_raw=$(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
-  # do som bit shuffling, swap lower byte with upper byte
-  adj_neg=0
-  adj_tmp=$(($(($tmp_raw >> 8)) | $(($tmp_raw << 8))))
-  adj_tmp=$(($adj_tmp & 0xffff))
-
-  echo $adj_tmp
-
+  tmpRaw=$(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
+  # do some bit shuffling, swap lower byte with upper byte
+  tmpNeg=0
+  adjTmp=$(($(($tmpRaw >> 8)) | $(($tmpRaw << 8))))
+  adjTmp=$(($adjTmp & 0xffff))
   # Check if the MSB (of the word) is set to indicate a negative value
-  if [[ $(($adj_tmp & 0x8000)) -eq 0x8000 ]]
+  if [[ $(($adjTmp & 0x8000)) -eq 0x8000 ]]
   then
-     adj_neg=256
+     tmpNeg=256
   fi
-  adj_tmp=$(($adj_tmp >> 5))
-  temperature=$(echo "scale=4; ($adj_tmp * 0.1250) - $adj_neg" | bc )
+  adjTmp=$(($adjTmp >> 5))
+  temperature=$(echo "scale=4; ($adjTmp * 0.1250) - $tmpNeg" | bc )
   echo "{\"date\":\"$(date)\", \"type\":\"$device\", \"temperature\": $temperature, \"name\":\"$name\" }"
 exit 0
 fi
