@@ -43,11 +43,10 @@ exit 0
 fi
 
 if [ "$device" == "I2C" ]; then
-
   readonly I2CAddress=0x48 # Slave address with A0, A1, and A2 set to 0v (ground).
   # for AT30TSE754A added precision is available by setting the precision bits
   # i2cset -y 1 $I2CAddress 0x01 0x0060 w
-  tmp_raw=0xE0F5 # $(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
+  tmp_raw=$(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
   # do som bit shuffling, swap lower byte with upper byte
   adj_neg=0
   adj_tmp=$(($(($tmp_raw >> 8)) | $(($tmp_raw << 8))))
