@@ -12,11 +12,11 @@ fi
 deviceName=$1
 deviceType=$2
 #
-if [ $deviceType == "1Wire" ]; then
+if [[ $deviceType == "1Wire" ]]; then
 #
-# read io pin, and if it failed set it to -100
+# read io pin, and if it failed set it to -127
 #
-io=$(gpio read 4) || io=-127;
+# io=$(gpio read 4) || io=-127;
 #
 # address to one-wire sensor
 #
@@ -40,13 +40,12 @@ echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read 28),
 #
 fi
 exit 0
-fi
 
-if [ $deviceType == "I2C" ]; then
+elif [[ $deviceType == "I2C" ]]; then
   readonly I2CAddress=0x48 # I2C device from "i2cdetect -y 1" command.
   # for AT30TSE754A added precision is available by setting the precision bits
   # i2cset -y 1 $I2CAddress 0x01 0x0060 w
-  tmpRaw=$(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
+  tmpRaw=0x200A # $(i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
   # do some bit shuffling, swap lower byte with upper byte
   tmpNeg=0
   adjTmp=$(($(($tmpRaw >> 8)) | $(($tmpRaw << 8))))
@@ -60,9 +59,8 @@ if [ $deviceType == "I2C" ]; then
   temperature=$(echo "scale=4; ($adjTmp * 0.1250) - $tmpNeg" | bc )
   echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"temperature\": $temperature, \"deviceName\":\"$deviceName\" }"
 exit 0
-fi
 
-if [ $deviceType == "dummy" ]; then
+elif [[ $deviceType == "dummy" ]]; then
   echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"deviceName\":\"$deviceName\" }"
 exit 0
 fi
