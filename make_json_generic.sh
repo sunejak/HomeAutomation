@@ -13,6 +13,17 @@ deviceName=$1
 deviceType=$2
 #
 if [[ $deviceType == "1Wire" ]]; then
+
+  if [ -z "$3" ]; then
+    echo "Provide a gpio pin number for pin A"
+    exit 1
+  fi
+  pinA=$3
+  if [ -z "$4" ]; then
+    echo "Provide a gpio pin number for pin B"
+    exit 1
+  fi
+  pinB=$4
 #
 # read io pin, and if it failed set it to -127
 #
@@ -30,13 +41,13 @@ if [ -d "$sensorDir"/"${sensorName}" ] && [ "$sensorError" -eq 0 ]; then
 #
 # convert temperature to a decimal number, with three decimals and a preceding zero if needed.
 #
-temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | bc -l | awk '{printf "%.2f\n", $0}')
+temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | /usr/bin/bc -l | awk '{printf "%.2f\n", $0}')
 #
-echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"deviceName\":\"$deviceName\" }"
+echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"motorA\": $(gpio read $pinA), \"motorB\": $(gpio read $pinB), \"deviceName\":\"$deviceName\" }"
 #
 else
 #
-echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"deviceName\":\"$deviceName\" }"
+echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read $pinA), \"motorB\": $(gpio read $pinB), \"deviceName\":\"$deviceName\" }"
 #
 fi
 exit 0
@@ -56,7 +67,7 @@ elif [[ $deviceType == "I2C" ]]; then
      tmpNeg=256
   fi
   adjTmp=$(($adjTmp >> 5))
-  temperature=$(echo "scale=4; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc )
+  temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc )
   echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"temperature\": $temperature, \"deviceName\":\"$deviceName\" }"
 exit 0
 
