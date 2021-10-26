@@ -11,8 +11,8 @@ fi
 #
 deviceName=$1
 deviceType=$2
-
-if [ "$deviceType" == "1Wire" ]; then
+#
+if [ $deviceType == "1Wire" ]; then
 #
 # read io pin, and if it failed set it to -100
 #
@@ -42,7 +42,7 @@ fi
 exit 0
 fi
 
-if [ "$deviceType" == "I2C" ]; then
+if [ $deviceType == "I2C" ]; then
   readonly I2CAddress=0x48 # I2C device from "i2cdetect -y 1" command.
   # for AT30TSE754A added precision is available by setting the precision bits
   # i2cset -y 1 $I2CAddress 0x01 0x0060 w
@@ -62,10 +62,10 @@ if [ "$deviceType" == "I2C" ]; then
 exit 0
 fi
 
-if [ "$deviceType" == "dummy" ]; then
+if [ $deviceType == "dummy" ]; then
   echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"deviceName\":\"$deviceName\" }"
 exit 0
 fi
 
-echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"error\":\"unknown device type\" }"
+echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"deviceName\":\"$deviceName\", \"error\":\"unknown device type\" }"
 exit 1
