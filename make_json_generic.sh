@@ -1,18 +1,18 @@
 #!/bin/bash
 #
 if [ -z "$1" ]; then
-  echo "Provide a device name"
+  echo "Provide a deviceName"
   exit 1
 fi
 if [ -z "$2" ]; then
-  echo "Provide a device type"
+  echo "Provide a deviceType (1Wire, I2C, dummy)"
   exit 1
 fi
 #
-name=$1
-device=$2
+deviceName=$1
+deviceType=$2
 
-if [ "$device" == "1Wire" ]; then
+if [ "$deviceType" == "1Wire" ]; then
 #
 # read io pin, and if it failed set it to -100
 #
@@ -32,17 +32,17 @@ if [ -d "$sensorDir"/"${sensorName}" ] && [ "$sensorError" -eq 0 ]; then
 #
 temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | bc -l | awk '{printf "%.2f\n", $0}')
 #
-echo "{\"date\":\"$(date)\", \"type\":\"$device\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"name\":\"$name\" }"
+echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"deviceName\":\"$deviceName\" }"
 #
 else
 #
-echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"name\":\"$name\" }"
+echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read 28), \"motorB\": $(gpio read 29), \"deviceName\":\"$deviceName\" }"
 #
 fi
 exit 0
 fi
 
-if [ "$device" == "I2C" ]; then
+if [ "$deviceType" == "I2C" ]; then
   readonly I2CAddress=0x48 # I2C device from "i2cdetect -y 1" command.
   # for AT30TSE754A added precision is available by setting the precision bits
   # i2cset -y 1 $I2CAddress 0x01 0x0060 w
@@ -58,15 +58,15 @@ if [ "$device" == "I2C" ]; then
   fi
   adjTmp=$(($adjTmp >> 5))
   temperature=$(echo "scale=4; ($adjTmp * 0.1250) - $tmpNeg" | bc )
-  echo "{\"date\":\"$(date)\", \"type\":\"$device\", \"temperature\": $temperature, \"name\":\"$name\" }"
+  echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"temperature\": $temperature, \"deviceName\":\"$deviceName\" }"
 exit 0
 fi
 
-
-if [ "$device" == "dummy" ]; then
-  echo dummy
+if [ "$deviceType" == "dummy" ]; then
+  echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"deviceName\":\"$deviceName\" }"
 exit 0
 fi
 
-echo "Unknown device " "$device"
+echo "Unknown deviceType $deviceType"
+  echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"error\":\"unknown device type\" }"
 exit 1
