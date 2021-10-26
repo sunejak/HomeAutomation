@@ -67,6 +67,5 @@ if [ "$deviceType" == "dummy" ]; then
 exit 0
 fi
 
-echo "Unknown deviceType $deviceType"
-  echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"error\":\"unknown device type\" }"
+echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"error\":\"unknown device type\" }"
 exit 1
