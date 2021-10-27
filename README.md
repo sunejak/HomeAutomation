@@ -62,6 +62,8 @@ Add a link for the webserver in the /var/www/html directory, you also need to fi
 
 * sudo ln -s /mnt/ramdisk/temperature.json
 
+If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the issue.
+
 
 
 
