@@ -64,6 +64,17 @@ Add a link for the webserver in the /var/www/html directory, you also need to fi
 
 If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the issue.
 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+1 14 * * *     	cd /home/ttjsun/2020/nordpool ; ./get_data_from_nordpool.sh
+40 14 * * *    	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./create_offpeak_time.sh  /home/ttjsun/2020/nordpool/market-$(date -I).json >> /var/www/html/market.log 
+0 12 * * 1     	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./get_sunrise_sunset.sh https://www.yr.no/api/v0/locations/1-218408/celestialevents >> /var/www/html/suntime.log
+5 0 * * *      	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./make_plot.sh >> /var/www/html/plot.log
+59 23 * * *    	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./make_movie.sh >> /var/www/html/movie.log
+* * * * *      	cd /home/ttjsun/2021/HomeAutomation/inverter; ./get_power.sh | head -1 > /var/www/html/inverter.json
+* * * * *      	cd /home/ttjsun/2021/HomeAutomation; ./make_device_list.sh > /var/www/html/devices.json
+* * * * *	cd /home/ttjsun/2021/monitor; ./Cron_api.sh >> logging.txt
 
 
 
