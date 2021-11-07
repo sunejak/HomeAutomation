@@ -25,10 +25,14 @@ fi
 #
 today=$(jq .data.Rows[0].StartTime "$1" | tr -d '"' | cut -c-10 )
 #
-# Then pick out the value pr hour
+# Then pick out the value pr hour and convert NOK/MWh to øre/kWh and add 25% tax
 #
 rm plotdata-"$today".in
-dataset=$(for i in {0..23}; do echo $i $(jq .data.Rows[$i].Columns[3].Value $1 | tr -d ' ' | tr '"' ' ') >> plotdata-"$today".in  ; done )
+dataset=$(for i in {0..23}; do
+  war=$(jq .data.Rows[$i].Columns[3].Value $1 | tr -d '"' | tr ',' '.')
+  war10=$(echo "scale=2; $war*1.25/10" | bc)
+  echo $i $war10 >> plotdata-"$today".in  ;
+  done )
 #
 # find lowest price hour
 #
