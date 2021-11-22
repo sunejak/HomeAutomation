@@ -83,7 +83,7 @@
 
             let htmlSegmentBuild =
                 `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>`
-                + `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a></div>`;
+                + `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;</div>`;
             if(response.hasOwnProperty('motorA')){
                 htmlSegmentBuild += `<div class="motor">Motor A <a href=${deviceURL}>${response.motorA}</a></div>`;
             }
