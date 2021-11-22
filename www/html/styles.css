@@ -19,7 +19,7 @@ body {
     background-color: antiquewhite;
 }
 .mid {
-    right: 0;
+    left: 50%;
     background-color: white;
 }
 .right {

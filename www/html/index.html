@@ -75,7 +75,7 @@
         html += '</div>';
 
         // loop through the device list
-        let htmlSegmentLeftRight = `<div class="split right">`
+        let htmlSegmentLeftRight = `<div class="split mid">`
         for (let i = 0; i < deviceLength; i++){
             let deviceURL = 'http://' + deviceList[i].address + '/temperature.json';
             let response = await getURL(deviceURL);
