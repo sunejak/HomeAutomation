@@ -11,6 +11,10 @@ fi
 #
 deviceName=$1
 deviceType=$2
+# find own IP address
+ipaddress=$(hostname -I | cut -f1 -d ' ');
+datestring=$(date);
+
 #
 if [[ $deviceType == "1Wire" ]]; then
 
@@ -53,7 +57,7 @@ fi
 exit 0
 
 elif [[ $deviceType == "I2C" ]]; then
-  readonly I2CAddress=0x48 # I2C device from "i2cdetect -y 1" command.
+  readonly I2CAddress=0x48 # I2C device address from "i2cdetect -y 1" command.
   # for AT30TSE754A added precision is available by setting the precision bits
   /usr/sbin/i2cset -y 1 $I2CAddress 0x01 0x0060 w
   tmpRaw=$(/usr/sbin/i2cget -y 1 $I2CAddress 0x00 w) # test values 0x200A and 0xE0F5
@@ -68,13 +72,19 @@ elif [[ $deviceType == "I2C" ]]; then
   fi
   adjTmp=$(($adjTmp >> 5))
   temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc )
-  echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"temperature\": $temperature, \"deviceName\":\"$deviceName\" }"
+    jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+     --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": $temperature, "type": $type}'
 exit 0
 
 elif [[ $deviceType == "dummy" ]]; then
-  echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"deviceName\":\"$deviceName\" }"
+  jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+   --arg type "$deviceType" --arg name "$deviceName" \
+   '{"name": $name, "IP": $ip, "date": $date, "type": $type}'
 exit 0
 fi
 
-echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"deviceName\":\"$deviceName\", \"error\":\"unknown device type\" }"
+  jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+   --arg type "$deviceType" --arg name "$deviceName" \
+   '{"name": $name, "IP": $ip, "date": $date, "type": $type, "error": "unknown device type"}'
 exit 1

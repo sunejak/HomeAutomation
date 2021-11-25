@@ -84,6 +84,9 @@
             let htmlSegmentBuild =
                 `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>`
                 + `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;</div>`;
+            if(response.hasOwnProperty('IP')){
+                htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
+            }
             if(response.hasOwnProperty('motorA')){
                 htmlSegmentBuild += `<div class="motor">Motor A <a href=${deviceURL}>${response.motorA}</a></div>`;
             }
@@ -95,6 +98,12 @@
             }
             if(response.hasOwnProperty('pinB')){
                 htmlSegmentBuild += `<div class="pin">Pin B <a href=${deviceURL}>${response.pinB}</a></div>`;
+            }
+            if(response.hasOwnProperty('relayA')){
+                htmlSegmentBuild += `<div class="pin">Relay A <a href=${deviceURL}>${response.relayA}</a></div>`;
+            }
+            if(response.hasOwnProperty('relayB')){
+                htmlSegmentBuild += `<div class="pin">Relay B <a href=${deviceURL}>${response.relayB}</a></div>`;
             }
             if(response.hasOwnProperty('fan')){
                 htmlSegmentBuild += `<div class="motor">Fan <a href=${deviceURL}>${response.fan}</a></div>`;
