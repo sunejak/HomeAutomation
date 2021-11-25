@@ -77,7 +77,7 @@ elif [[ $deviceType == "I2C" ]]; then
   adjTmp=$(($adjTmp >> 5))
   temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc | awk '{printf "%.2f\n", $0}')
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
-     --arg type "$deviceType" --arg name "$deviceName" --arg tmp $temperature \
+     --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature" \
      '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "type": $type}'
 exit 0
 
