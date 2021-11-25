@@ -74,7 +74,7 @@ elif [[ $deviceType == "I2C" ]]; then
   temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc )
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
-     '{"name": $name, "IP": $ip, "date": $date, "temperature": $temperature, "type": $type}'
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "type": $type}'
 exit 0
 
 elif [[ $deviceType == "dummy" ]]; then
