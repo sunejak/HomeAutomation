@@ -29,10 +29,6 @@ if [[ $deviceType == "1Wire" ]]; then
   fi
   pinB=$4
 #
-# read io pin, and if it failed set it to -127
-#
-# io=$(gpio read 4) || io=-127;
-#
 # address to one-wire sensor
 #
 sensorDir="/sys/bus/w1/devices";
@@ -45,13 +41,21 @@ if [ -d "$sensorDir"/"${sensorName}" ] && [ "$sensorError" -eq 0 ]; then
 #
 # convert temperature to a decimal number, with three decimals and a preceding zero if needed.
 #
-temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | /usr/bin/bc -l | awk '{printf "%.2f\n", $0}')
+temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | /usr/bin/bc -l | awk '{printf "%.2f\n", $0}');
+motorA=$(gpio read $pinA);
+motorB=$(gpio read $pinB);
 #
-echo "{\"date\":\"$(date)\", \"type\":\"$deviceType\", \"sensor\":\"$sensorName\", \"temperature\": $temperature, \"motorA\": $(gpio read $pinA), \"motorB\": $(gpio read $pinB), \"deviceName\":\"$deviceName\" }"
+    jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+     --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
+     --arg ma "$motorA" --arg mb "$motorB" \
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "motorA": $ma, "motorB": $mb, "type": $type}'
 #
 else
 #
-echo "{\"date\":\"$(date)\", \"temperature\": -100, \"motorA\": $(gpio read $pinA), \"motorB\": $(gpio read $pinB), \"deviceName\":\"$deviceName\" }"
+    jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+     --arg type "$deviceType" --arg name "$deviceName" \
+     --arg ma "$motorA" --arg mb "$motorB" \
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": -100, "motorA": $ma, "motorB": $mb, "type": $type}'
 #
 fi
 exit 0
@@ -71,9 +75,9 @@ elif [[ $deviceType == "I2C" ]]; then
      tmpNeg=256
   fi
   adjTmp=$(($adjTmp >> 5))
-  temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc )
+  temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc | awk '{printf "%.2f\n", $0}')
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
-     --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
+     --arg type "$deviceType" --arg name "$deviceName" --arg tmp $temperature \
      '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "type": $type}'
 exit 0
 
