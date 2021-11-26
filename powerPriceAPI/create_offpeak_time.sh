@@ -29,7 +29,7 @@ today=$(jq .data.Rows[0].StartTime "$1" | tr -d '"' | cut -c-10 )
 #
 rm plotdata-"$today".in
 dataset=$(for i in {0..23}; do
-  war=$(jq .data.Rows[$i].Columns[3].Value $1 | tr -d '"' | tr ',' '.')
+  war=$(jq .data.Rows[$i].Columns[3].Value $1 | tr -d '"' | tr ',' '.' | tr -d ' ')
   war10=$(echo "scale=2; $war*1.25/10" | bc)
   echo $i $war10 >> plotdata-"$today".in  ;
   done )
@@ -40,8 +40,8 @@ dataset=$(for i in {0..23}; do
 #
 # find highest price hour
 #
-high_price_hour=$(for i in {0..23}; do echo $(jq .data.Rows[$i].Columns[3].Value $1) $i ; done | tr -d '"' | sort -n | tail -1 | cut -d' '  -f2)
-high_price=$(jq .data.Rows[$high_price_hour].Columns[3].Value $1 | tr -d '"')
+high_price_hour=$(for i in {0..23}; do echo $(jq .data.Rows[$i].Columns[3].Value $1) $i ; done | tr -d '"' | tr -d ' ' | sort -n | tail -1 | cut -d' '  -f2)
+high_price=$(jq .data.Rows[$high_price_hour].Columns[3].Value $1 | tr -d '"' | tr -d ' ')
 #
 # calculate delta in seconds
 #
