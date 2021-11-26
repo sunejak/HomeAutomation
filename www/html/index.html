@@ -81,9 +81,11 @@
             let response = await getURL(deviceURL);
             console.log(response);
 
-            let htmlSegmentBuild =
-                `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>`
-                + `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;</div>`;
+            let htmlSegmentBuild = `<h5>${deviceList[i].name}&nbsp; ${response.date}</h5>`
+
+            if(response.hasOwnProperty('temperature')){
+                htmlSegmentBuild += `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;</div>`;
+            }
             if(response.hasOwnProperty('IP')){
                 htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
             }
