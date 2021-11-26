@@ -24,10 +24,20 @@ if [[ $deviceType == "1Wire" ]]; then
   fi
   pinA=$3
   if [ -z "$4" ]; then
+    echo "Provide a gpio pin name for pin A"
+    exit 1
+  fi
+  labelA=$4
+  if [ -z "$5" ]; then
     echo "Provide a gpio pin number for pin B"
     exit 1
   fi
-  pinB=$4
+  pinB=$5
+  if [ -z "$6" ]; then
+    echo "Provide a gpio pin name for pin B"
+    exit 1
+  fi
+  labelB=$6
 #
 # address to one-wire sensor
 #
@@ -35,27 +45,32 @@ sensorDir="/sys/bus/w1/devices";
 sensorName=$(ls $sensorDir | grep 28);
 sensorError=$?
 #
+# read the pins
+#
+stateA=$(gpio read $pinA);
+stateB=$(gpio read $pinB);
+#
 # check if sensor is there
 #
 if [ -d "$sensorDir"/"${sensorName}" ] && [ "$sensorError" -eq 0 ]; then
 #
 # convert temperature to a decimal number, with three decimals and a preceding zero if needed.
 #
-temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | /usr/bin/bc -l | awk '{printf "%.2f\n", $0}');
-motorA=$(gpio read $pinA);
-motorB=$(gpio read $pinB);
+  temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | /usr/bin/bc -l | awk '{printf "%.2f\n", $0}');
 #
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
-     --arg ma "$motorA" --arg mb "$motorB" \
-     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "motorA": $ma, "motorB": $mb, "type": $type}'
+     --arg ma "$stateA" --arg mb "$stateB" \
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "xyzA": $ma, "xyzB": $mb, "type": $type}' \
+     | sed "s/xyzA/$labelA/g" | sed "s/xyzB/$labelB/g"
 #
 else
 #
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
      --arg type "$deviceType" --arg name "$deviceName" \
-     --arg ma "$motorA" --arg mb "$motorB" \
-     '{"name": $name, "IP": $ip, "date": $date, "temperature": -100, "motorA": $ma, "motorB": $mb, "type": $type}'
+     --arg ma "$stateA" --arg mb "$stateB" \
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": -100, "xyzA": $ma, "xyzB": $mb, "type": $type}' \
+    | sed "s/xyzA/$labelA/g" | sed "s/xyzB/$labelB/g"
 #
 fi
 exit 0
