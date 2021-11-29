@@ -30,7 +30,7 @@ today=$(echo $data | jq -r .Rows[0].StartTime | cut -c-10 )
 #
 rm plotdata-"$today".in
 dataset=$(for i in {0..23}; do
-  war=$(echo $data | jq -r .Rows[$i].Columns[3].Value  |  tr ',' '.' | tr -d' ')
+  war=$(echo $data | jq -r .Rows[$i].Columns[3].Value  |  tr ',' '.' | tr -d ' ')
   war10=$(echo "scale=2; $war*1.25/10" | bc)
   echo $i $war10 >> plotdata-"$today".in  ;
   done )
@@ -41,7 +41,7 @@ dataset=$(for i in {0..23}; do
 #
 # find highest price hour
 #
-high_price_hour=$(for i in {0..23}; do echo $(echo $data | jq  -r .Rows[$i].Columns[3].Value | tr -d' ' ) $i ; done | sort -n | tail -1 | cut -d' '  -f2)
+high_price_hour=$(for i in {0..23}; do echo $(echo $data | jq  -r .Rows[$i].Columns[3].Value | tr -d ' ' ) $i ; done | sort -n | tail -1 | cut -d ' '  -f2)
 # echo Høy time: $high_price_hour;
 high_price=$(echo $data | jq -r .Rows[$high_price_hour].Columns[3].Value  | tr -d ' ')
 # echo Høy pris: $high_price;
