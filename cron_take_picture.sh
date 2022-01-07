@@ -18,7 +18,8 @@ io=$(gpio read 27) || io=-127;
 if [ $io -eq 1 ]; then
    raspistill -n -o /mnt/ramdisk/outdoor_${fileName}
    echo took picture $(date)
-   scp /mnt/ramdisk/outdoor_${fileName}  ttjsun@192.168.1.23:/var/www/html/outdoor/$(date +%m)_$(date +%b)_$(date +%Y)/$(date +%d)/outdoor_${fileName}.jpeg
+   jpegtran -rotate 180 -outfile /mnt/ramdisk/tmp_${delayTime} /mnt/ramdisk/outdoor_${fileName}
+   scp /mnt/ramdisk/tmp_${delayTime} ttjsun@192.168.1.23:/var/www/html/outdoor/$(date +%m)_$(date +%b)_$(date +%Y)/$(date +%d)/outdoor_${fileName}
    status=$1
    echo $status
 
