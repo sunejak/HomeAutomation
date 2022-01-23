@@ -59,6 +59,7 @@ if [ -d "$sensorDir"/"${sensorName}" ] && [ "$sensorError" -eq 0 ]; then
   temperature=$(echo "scale=3; $(cat "$sensorDir"/"$sensorName"/temperature)/1000" | /usr/bin/bc -l | awk '{printf "%.2f\n", $0}');
 else
   temperature=-100
+fi
 #
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
@@ -66,7 +67,7 @@ else
      '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "xyzA": $ma, "xyzB": $mb, "type": $type}' \
      | sed "s/xyzA/$labelA/g" | sed "s/xyzB/$labelB/g"
 #
-fi
+
 exit 0
 
 elif [[ $deviceType == "I2C" ]]; then
