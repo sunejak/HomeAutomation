@@ -86,7 +86,7 @@ elif [[ $deviceType == "I2C" ]]; then
   fi
   adjTmp=$(($adjTmp >> 5))
   temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc | awk '{printf "%.2f\n", $0}')
-  prev_temperature=$(jq -r .temperature /mnt/ramdisk/temperature.json)
+  prev_temperature=$(jq -r .temperature /mnt/ramdisk/last.json)
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature" --arg prevtmp "$prev_temperature" \
      '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "prev": $prevtmp, "type": $type }'
