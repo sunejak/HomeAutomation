@@ -8,7 +8,9 @@ print "number of arguments: ", ARGC
 
 set timefmt "%H"
 set xtics format "%H"
-set xlabel "hour"
+set title "Nordpool Prices"
+set ylabel "Price"
+set xlabel "Hour"
 set xrange[0:24]
 set grid
 set terminal png size 500,400
