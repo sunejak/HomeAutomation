@@ -24,28 +24,24 @@ onMorningTime=$(date --date="$3" "+%s");  # 5:00
 #
 # fetch sunrise and sunset times, use RAM disk on pi.
 #
-tmpfile=/mnt/ramdisk/sun.tmp
-
-data=$( curl -fsS -w '%{http_code}' ${URL} > ${tmpfile} )
+response=$(curl -s ${URL})
 if [ $? -ne 0 ] ; then
   echo "Could not access: ${URL}"
   exit 1;
 fi
-
-today=$(grep $(date -I) ${tmpfile})
+#
+today=$(echo $response | tr ' ' '\n' | grep $(date -I) )
 if [ $? -ne 0 ] ; then
   echo "Could not find data for today"
   exit 1;
 fi
 
-sunsetTime=$(echo $today | cut -d ' ' -f4)
-sunriseTime=$(echo $today | cut -d ' ' -f1)
+sunsetTime=$( date -d $(echo $today | jq -r .Sunrise ) "+%s")
+sunriseTime=$( date -d $(echo $today | jq -r .Sunset ) "+%s")
 #
 now=$(date "+%s")
 #
-#echo Lights time window from: $(date --date=@$offNightTime) to:  $(date --date=@$onMorningTime)
-#echo Daylight window from: $(date --date=@$sunriseTime) to:  $(date --date=@$sunsetTime)
-gpio mode 5 output
+#gpio mode 5 output
 turnOn=0
 
 # keep light on from midnight until given time
@@ -66,8 +62,8 @@ if [  $now -gt $sunsetTime ]  ; then
 
 if [  $turnOn -eq 1 ] ; then
       echo Lights on $now : $offNightTime $onMorningTime $sunriseTime $sunsetTime
-      gpio write 5 1
+#      gpio write 5 1
 else
       echo Lights off $now : $offNightTime $onMorningTime $sunriseTime $sunsetTime
-      gpio write 5 0
+#      gpio write 5 0
 fi
