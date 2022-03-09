@@ -41,7 +41,7 @@ sunriseTime=$( date -d $(echo $today | jq -r .Sunset ) "+%s")
 #
 now=$(date "+%s")
 #
-#gpio mode 5 output
+gpio mode 5 output
 turnOn=0
 
 # keep light on from midnight until given time
@@ -62,8 +62,8 @@ if [  $now -gt $sunsetTime ]  ; then
 
 if [  $turnOn -eq 1 ] ; then
       echo Lights on $now : $offNightTime $onMorningTime $sunriseTime $sunsetTime
-#      gpio write 5 1
+      gpio write 5 1
 else
       echo Lights off $now : $offNightTime $onMorningTime $sunriseTime $sunsetTime
-#      gpio write 5 0
+      gpio write 5 0
 fi
