@@ -61,9 +61,9 @@ if [ $now -gt $sunsetTime ]; then
 fi
 
 if [ $turnOn -eq 1 ]; then
-  echo Lights on $now : $offNightTime $onMorningTime $sunriseTime $sunsetTime
+  echo Lights on $(date --date=@$now) : $(date --date=@$offNightTime) , $(date --date=@$onMorningTime) , The Sun: $(date --date=@$sunriseTime) , $(date --date=@$sunsetTime)
   gpio write 5 1
 else
-  echo Lights off $now : $offNightTime $onMorningTime $sunriseTime $sunsetTime
+  echo Lights off $(date --date=@$now) : $(date --date=@$offNightTime) , $(date --date=@$onMorningTime) , The Sun: $(date --date=@$sunriseTime) , $(date --date=@$sunsetTime)
   gpio write 5 0
 fi
