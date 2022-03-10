@@ -6,7 +6,7 @@ addressRP4=$(./make_device_list.sh | jq '.[] | select (.name=="fireplace")' | jq
 #
 fireplaceData=$(curl  -s $addressRP4/all_temperature.json )
 if [ $? -ne 0 ] ; then
-  echo "Could not access fireplace"
+  echo "Could not access fireplace at $addressRP4"
   exit 1;
 fi
 
