@@ -2,7 +2,9 @@
 #
 # get data from fireplace, and format for gnuplot
 #
-fireplaceData=$(curl  -s 192.168.1.148/all_temperature.json )
+addressRP4=$(./make_device_list.sh | jq '.[] | select (.name=="fireplace")' | jq -r .address)
+#
+fireplaceData=$(curl  -s $addressRP4/all_temperature.json )
 if [ $? -ne 0 ] ; then
   echo "Could not access fireplace"
   exit 1;
