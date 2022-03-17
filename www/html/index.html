@@ -6,9 +6,6 @@
 <script type="text/javascript" src="includeHTML.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="64">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
     <title>Brannhaugen 17</title>
 </head>
 <body>
@@ -63,21 +60,22 @@
         }
 
         let html = '<div class="split left">';
+        let now = new Date().getTime();
         let htmlSegmentLeftLeft = `
             <div class="split left">
 			<h4>Links</h4>
             <div class="text"><a href='http://192.168.1.23/suntime.log'>Time for sunrise and sunset</a></div>
             <div class="text"><a href='http://192.168.1.23/market.log'>High prices</a></div>
-            <div class="text"><img src="http://192.168.1.23/plot.png" height="200" width="300" alt="plot of prices"></div>
-            <div class="text"><img src="http://192.168.1.26/today.png" height="200" width="300" alt="plot of prices today"></div>
-            <div class="text"><img src="http://192.168.1.26/tomorrow.png" height="200" width="300" alt="plot of prices tomorrow"></div>
+            <div class="text"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
+            <div class="text"><img src="http://192.168.1.26/today.png?time=${now}" height="200" width="300" alt="plot of prices today"></div>
+            <div class="text"><img src="http://192.168.1.26/tomorrow.png?time=${now}" height="200" width="300" alt="plot of prices tomorrow"></div>
             <br>
             <h5>Inverter ${inverter.Head.Timestamp}</h5>
             <div class="inverter">Status ${inverter.text}</div>
             <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
             <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
             <br>
-            <div class="text"><img src="http://192.168.1.23/fireplace.png" height="200" width="300" alt="plot of fireplace"></div>`;
+            <div class="text"><img src="http://192.168.1.23/fireplace.png?time=${now}" height="200" width="300" alt="plot of fireplace"></div>`;
 
         html += htmlSegmentLeftLeft ;
         html += '</div>';
@@ -131,7 +129,7 @@
 
         let htmlSegmentRight = `<div class="split right">
                        <h4>Driveway</h4>
-                       <div class="cam"><img src="http://192.168.1.233/test_0.jpeg" height="640" width="800" alt="drive way"></div>
+                       <div class="cam"><img src="http://192.168.1.23/desk-cam.jpeg?time=${now}" height="640" width="800" alt="drive way"></div>
                        </div>`;
         html += htmlSegmentRight;
 
