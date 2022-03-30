@@ -1,6 +1,6 @@
 
 set xdata time
-set timefmt "%Y-%m-%d %H:%M:%S"
+set timefmt "%Y-%m-%dT%H:%M:%S"
 set xtics format "%H:%M"
 set title "Solar panel power"
 set ylabel 'Watt'
