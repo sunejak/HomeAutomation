@@ -11,7 +11,7 @@
 #
 resp=$(curl -s "http://192.168.1.30/solar_api/v1/GetInverterRealtimeData.cgi?scope=Device&DataCollection=CommonInverterData&DeviceId=1" )
 if [ $? -ne 0 ] ; then
-  echo "{ \"Body\" : { \"Data\" : { \"DAY_ENERGY\" : { \"Unit\" : \"Wh\", \"Value\" : -1.0 }, \"DeviceStatus\" : { \"StatusCode\" : -1 }}}, \"Head\" : {  \"Timestamp\" : \"2021-0-0\" } }"
+  echo "{ \"Body\" : { \"Data\" : { \"DAY_ENERGY\" : { \"Unit\" : \"Wh\", \"Value\" : -1.0 }, \"DeviceStatus\" : { \"StatusCode\" : -1 }}}, \"Head\" : {  \"Timestamp\" : \"$(date -I)\" } }"
   exit 1;
 fi
 #
