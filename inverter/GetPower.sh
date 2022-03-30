@@ -16,16 +16,16 @@ if [ $? -ne 0 ] ; then
   exit 1;
 fi
 #
-echo $resp
+echo "$resp"
 #
-statusCode=$(echo $resp | jq .Body.Data.DeviceStatus.StatusCode)
+statusCode=$(echo "$resp" | jq .Body.Data.DeviceStatus.StatusCode)
 #
 # echo Status is $statusCode
   case "$statusCode" in
     [0-6]) echo "Startup"
       ;;
-    7) current=$(echo $resp | jq .Body.Data.PAC );
-      echo "Running and producing: " $current
+    7) current=$(echo "$resp" | jq .Body.Data.PAC );
+      echo "Running and producing: " "$current"
       ;;
     8) echo "Standby"
       ;;

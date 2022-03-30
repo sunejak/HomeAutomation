@@ -1,5 +1,11 @@
 #!/bin/bash
 #
-# to make a daily data for plot
+# to fetch data to make a daily for plot current power
 #
-grep -e $(date -I) /var/www/html/all_inverter.json | jq -r '.Body.Data.PAC.Value , .Head.Timestamp ' | paste - - -d' '
+resp=$(curl -s "http://192.168.1.23/all_inverter.json" )
+if [ $? -ne 0 ] ; then
+  echo "{ \"Error\" : \"Could not get data\" }"
+  exit 1;
+fi
+#
+echo "$resp" | grep -e "$(date -I)" | jq -r '.Body.Data.PAC.Value , .Head.Timestamp ' | paste - - -d' '
