@@ -15,7 +15,7 @@ if [ $? -ne 0 ] ; then
   exit 1;
 fi
 #
-echo "$resp"
+# echo "$resp"
 #
 statusCode=$(echo "$resp" | jq .Body.Data.DeviceStatus.StatusCode)
 #
