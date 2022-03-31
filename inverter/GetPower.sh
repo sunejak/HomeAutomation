@@ -15,7 +15,7 @@ if [ $? -ne 0 ] ; then
   exit 1;
 fi
 #
-echo "$resp" | tr -d '\n'
+echo "$resp" | jq -c .
 #
 exit 0;
 
