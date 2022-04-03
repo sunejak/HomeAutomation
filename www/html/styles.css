@@ -59,3 +59,8 @@ div.pin {
 h4 {
     padding: 2px;
 }
+h5 {
+    padding: 2px;
+    font-size: small;
+    font-style: italic;
+}

@@ -77,6 +77,10 @@ If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the i
 * * * * *	cd /home/ttjsun/2021/monitor; ./Cron_api.sh >> logging.txt
 
 
+# m h  dom mon dow   command
+59 23 * * *    	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./make_movie.sh >> /mnt/SSD_disk1/movie.log
+0 12 * * 1     	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./get_sunrise_sunset.sh https://www.yr.no/api/v0/locations/1-218408/celestialevents >> /mnt/SSD_disk1/suntime.json
+0 14 * * * 	cd /home/ttjsun/2022/ElectricPrices/src/main/sh; ./crontab.sh >> /mnt/SSD_disk1/electric.json
 
 
 
