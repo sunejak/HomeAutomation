@@ -39,6 +39,8 @@ body {
 }
 div.text {
     font-size: small;
+    padding: 10px;
+    font-style: italic;
 }
 div.inverter {
     font-size: small;
