@@ -59,9 +59,9 @@
                 break;
         }
 
-        let suntime = await getURL('suntime_today.json');
+        let suntime = await getURL('http://192.168.1.26/suntime_today.json');
         console.log(suntime.Sunrise + ' ' + suntime.Sunset);
-        let power = await getURL('electric_today.json');
+        let power = await getURL('http://192.168.1.26/electric_today.json');
         console.log(power.maxHour + ' ' + power.minHour);
 
         let html = '<div class="split left">';
