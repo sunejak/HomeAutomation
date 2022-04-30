@@ -59,6 +59,11 @@
                 break;
         }
 
+        let suntime = await getURL('suntime_today.json');
+        console.log(suntime.Sunrise + ' ' + suntime.Sunset);
+        let power = await getURL('electric_today.json');
+        console.log(power.maxHour + ' ' + power.minHour);
+
         let html = '<div class="split left">';
         let now = new Date().getTime();
         let htmlSegmentLeftLeft = `
