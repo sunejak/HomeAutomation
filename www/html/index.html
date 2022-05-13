@@ -71,7 +71,6 @@
 			<h4>Links</h4>
             <div class="text"><a href='http://192.168.1.23/suntime.log'>Sunrise (${suntime.Sunrise})<p>Sunset (${suntime.Sunset})</a></div>
             <div class="text"><a href='http://192.168.1.23/market.log'>Electric prices high (${power.maxHour}) low (${power.minHour})</a></div>
-            <div class="plot"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
             <div class="plot"><img src="http://192.168.1.26/today.png?time=${now}" height="200" width="300" alt="plot of prices today"></div>
             <div class="plot"><img src="http://192.168.1.26/tomorrow.png?time=${now}" height="200" width="300" alt="plot of prices tomorrow"></div>
             <br>
@@ -80,13 +79,15 @@
             <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
             <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
             <br>
-            <div class="text"><img src="http://192.168.1.23/fireplace.png?time=${now}" height="200" width="300" alt="plot of fireplace"></div>`;
+            <div class="text"><img src="http://192.168.1.23/fireplace.png?time=${now}" height="200" width="300" alt="plot of fireplace"></div>
+            <div class="plot"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
+            `;
 
         html += htmlSegmentLeftLeft ;
         html += '</div>';
 
         // loop through the device list
-        let htmlSegmentLeftRight = `<div class="split mid">`
+        let htmlSegmentLeftRight = `<div class="split mid">`;
         for (let i = 0; i < deviceLength; i++){
             let deviceURL = 'http://' + deviceList[i].address + '/temperature.json';
             let response = await getURL(deviceURL);
