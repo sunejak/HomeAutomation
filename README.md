@@ -64,24 +64,13 @@ Add a link for the webserver in the /var/www/html directory, you also need to fi
 
 If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the issue.
 
-# For more information see the manual pages of crontab(5) and cron(8)
-# 
-# m h  dom mon dow   command
-1 14 * * *     	cd /home/ttjsun/2020/nordpool ; ./get_data_from_nordpool.sh
-40 14 * * *    	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./create_offpeak_time.sh  /home/ttjsun/2020/nordpool/market-$(date -I).json >> /var/www/html/market.log 
-0 12 * * 1     	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./get_sunrise_sunset.sh https://www.yr.no/api/v0/locations/1-218408/celestialevents >> /var/www/html/suntime.log
-5 0 * * *      	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./make_plot.sh >> /var/www/html/plot.log
-59 23 * * *    	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./make_movie.sh >> /var/www/html/movie.log
-* * * * *      	cd /home/ttjsun/2021/HomeAutomation/inverter; ./get_power.sh | head -1 > /var/www/html/inverter.json
-* * * * *      	cd /home/ttjsun/2021/HomeAutomation; ./make_device_list.sh > /var/www/html/devices.json
-* * * * *	cd /home/ttjsun/2021/monitor; ./Cron_api.sh >> logging.txt
-
-
-# m h  dom mon dow   command
-59 23 * * *    	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./make_movie.sh >> /mnt/SSD_disk1/movie.log
-0 12 * * 1     	cd /home/ttjsun/2021/HomeAutomation/powerPriceAPI ; ./get_sunrise_sunset.sh https://www.yr.no/api/v0/locations/1-218408/celestialevents >> /mnt/SSD_disk1/suntime.json
-0 14 * * * 	cd /home/ttjsun/2022/ElectricPrices/src/main/sh; ./crontab.sh >> /mnt/SSD_disk1/electric.json
-
-
+    # For more information see the manual pages of crontab(5) and cron(8)
+    # 
+    # m h  dom mon dow   command
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_onORoff_withCurl.sh http://192.168.1.26/electric.json 1.5 >> stdout.log
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_daylight_withCurl.sh http://192.168.1.26/suntime.json >> stdout.log
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_OutdoorLight_withCurl.sh  http://192.168.1.26/suntime.json "00:20" "05:50" >> stdout.log
+    * * * * *	    cd /home/pi/2022/HomeAutomation/devices; ./make_json_generic.sh garage 1Wire 4 relayA 5 relayB > /mnt/ramdisk/temperature.json
+    0 * * * *	    curl http://192.168.1.23/dummy.txt?device=garage
 
 
