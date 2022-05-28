@@ -129,9 +129,9 @@
                 htmlSegmentBuild += `<div class="pin">Daylight <a href=${deviceURL}>${response.daylight}</a></div>`;
             }
             if(response.hasOwnProperty('io')){
-                let ioLength = io.length;
+                let ioLength = response.io.length;
                 for (let j = 0; j < ioLength; j++) {
-                    for (const [key, value] of Object.entries(io[j])) {
+                    for (const [key, value] of Object.entries(response.io[j])) {
                         console.log(`${key}: ${value}`);
                         htmlSegmentBuild += `<div class="pin">IO <a href=${deviceURL}>${key}: ${value}</a></div>`;
                     }
