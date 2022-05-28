@@ -64,7 +64,7 @@ fi
     jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
      --arg ma "$stateA" --arg mb "$stateB" \
-     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "xyzA": $ma, "xyzB": $mb, "type": $type}' \
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "io": [{ "xyzA": $ma }, { "xyzB": $mb }], "type": $type }' \
      | sed "s/xyzA/$labelA/g" | sed "s/xyzB/$labelB/g"
 #
 
