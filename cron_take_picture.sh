@@ -16,10 +16,10 @@ fileName=outdoor_$(date +%Y)_$(date +%b)_$(date +%d)_$(date +%H)$(date +%M)_$(da
 #
 io=$(gpio read 27) || io=-127;
 if [ $io -eq 1 ]; then
-   raspistill -n -ex night -rot 180 -o /mnt/ramdisk/tmp_${delayTime}
+   raspistill -n -ex night -rot 180 -o /mnt/ramdisk/tmp_${delayTime}.jpeg
    echo took picture $(date)
    # jpegtran -rotate 180 -outfile /mnt/ramdisk/tmp_${delayTime} /mnt/ramdisk/rot_${delayTime}
-   scp /mnt/ramdisk/tmp_${delayTime} ttjsun@192.168.1.23:/var/www/html/outdoor/$(date +%m)_$(date +%b)_$(date +%Y)/$(date +%d)/${fileName}
+   scp /mnt/ramdisk/tmp_${delayTime}.jpeg ttjsun@192.168.1.26:/var/www/html/outdoor/$(date +%m)_$(date +%b)_$(date +%Y)/$(date +%d)/${fileName}
    status=$1
    echo $status
 
