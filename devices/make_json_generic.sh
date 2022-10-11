@@ -1,24 +1,24 @@
 #!/bin/bash
 #
-echo "Total number of arguments passed are: $#"
+# echo "Total number of arguments passed are: $#"
 # $* is used to show the command line arguments
-echo "The arguments are: $*"
+# echo "The arguments are: $*"
 #
 if [ -z "$1" ]; then
-  echo "Provide a deviceName"
+  echo "Provide a deviceName and a device Type"
   exit 1
 fi
 deviceName=$1
 shift
 if [ -z "$1" ]; then
-  echo "Provide a deviceType (1Wire, I2C, dummy)"
+  echo "Provide a device Type (1Wire, I2C, dummy)"
   exit 1
 fi
 deviceType=$1
 shift
 # find own IP address
 ipaddress=$(hostname -I | cut -f1 -d ' ');
-datestring=$(date);
+dateString=$(date);
 
 #
 if [[ $deviceType == "1Wire" ]]; then
@@ -69,7 +69,7 @@ else
   temperature=-100
 fi
 #
-    jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+    jq -c --null-input --arg ip "$ipaddress" --arg date "$dateString" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature"\
      --arg ma "$stateA" --arg mb "$stateB" \
      '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "io": [{ "xyzA": $ma }, { "xyzB": $mb }], "type": $type }' \
@@ -95,19 +95,19 @@ elif [[ $deviceType == "I2C" ]]; then
   adjTmp=$(($adjTmp >> 5))
   temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc | awk '{printf "%.2f\n", $0}')
   prev_temperature=$(tail -1 /mnt/ramdisk/last.json | jq -r .temperature)
-    jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+    jq -c --null-input --arg ip "$ipaddress" --arg date "$dateString" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature" --arg prevtmp "$prev_temperature" \
      '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "prev": $prevtmp, "type": $type }'
 exit 0
 
 elif [[ $deviceType == "dummy" ]]; then
-  jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+  jq -c --null-input --arg ip "$ipaddress" --arg date "$dateString" \
    --arg type "$deviceType" --arg name "$deviceName" \
    '{"name": $name, "IP": $ip, "date": $date, "type": $type}'
 exit 0
 fi
 
-  jq -c --null-input --arg ip "$ipaddress" --arg date "$datestring" \
+  jq -c --null-input --arg ip "$ipaddress" --arg date "$dateString" \
    --arg type "$deviceType" --arg name "$deviceName" \
    '{"name": $name, "IP": $ip, "date": $date, "type": $type, "error": "unknown device type"}'
 exit 1
