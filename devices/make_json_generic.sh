@@ -1,16 +1,21 @@
 #!/bin/bash
 #
+echo "Total number of arguments passed are: $#"
+# $* is used to show the command line arguments
+echo "The arguments are: $*"
+#
 if [ -z "$1" ]; then
   echo "Provide a deviceName"
   exit 1
 fi
-if [ -z "$2" ]; then
+deviceName=$1
+shift
+if [ -z "$1" ]; then
   echo "Provide a deviceType (1Wire, I2C, dummy)"
   exit 1
 fi
-#
-deviceName=$1
-deviceType=$2
+deviceType=$1
+shift
 # find own IP address
 ipaddress=$(hostname -I | cut -f1 -d ' ');
 datestring=$(date);
@@ -18,37 +23,40 @@ datestring=$(date);
 #
 if [[ $deviceType == "1Wire" ]]; then
 
-  if [ -z "$3" ]; then
+  # The rest of the arguments are now pairs of pin names.
+  #
+  # use jq .io += [{"pin": 0}] to add array entries
+  #
+  # They are converted to a JSON array.
+  #
+  if [ -z "$1" ]; then
     echo "Provide a gpio pin number for pin A"
     exit 1
   fi
-  pinA=$3
-  if [ -z "$4" ]; then
+  pinA=$1
+  stateA=$(gpio read $pinA);
+  if [ -z "$2" ]; then
     echo "Provide a gpio pin name for pin A"
     exit 1
   fi
-  labelA=$4
-  if [ -z "$5" ]; then
+  labelA=$2
+  if [ -z "$3" ]; then
     echo "Provide a gpio pin number for pin B"
     exit 1
   fi
-  pinB=$5
-  if [ -z "$6" ]; then
+  pinB=$3
+  stateB=$(gpio read $pinB);
+  if [ -z "$4" ]; then
     echo "Provide a gpio pin name for pin B"
     exit 1
   fi
-  labelB=$6
+  labelB=$4
 #
 # address to one-wire sensor
 #
 sensorDir="/sys/bus/w1/devices";
 sensorName=$(ls $sensorDir | grep 28);
 sensorError=$?
-#
-# read the pins
-#
-stateA=$(gpio read $pinA);
-stateB=$(gpio read $pinB);
 #
 # check if sensor is there
 #
