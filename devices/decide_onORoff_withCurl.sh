@@ -41,7 +41,7 @@ morning=$(date -d $(date -I) "+%s")
 startTime=$(( morning + peakTime - delta ))
 stopTime=$(( morning + peakTime + delta ))
 #
-echo Time window from: $(date --date=@$startTime) to:  $(date --date=@$stopTime)
+# echo Time window from: $(date --date=@$startTime) to:  $(date --date=@$stopTime)
 gpio mode 3 output
 #
 if [ $now -gt $startTime ] && [ $now -lt $stopTime ]; then

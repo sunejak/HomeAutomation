@@ -29,9 +29,9 @@ now=$(date "+%s")
 gpio mode 4 output
 #
 if [ $now -gt $startTime ] && [ $now -lt $stopTime ]; then
-  echo Inside window $(date) Sunrise from: $(date --date=@$startTime) Sunset at:  $(date --date=@$stopTime)
+  echo Day light time $(date) Sunrise from: $(date --date=@$startTime) Sunset at:  $(date --date=@$stopTime)
   gpio write 4 1
   else
-  echo Outside window $(date) Sunrise from: $(date --date=@$startTime) Sunset at:  $(date --date=@$stopTime)
+  echo Night time $(date) Sunrise from: $(date --date=@$startTime) Sunset at:  $(date --date=@$stopTime)
   gpio write 4 0
 fi
