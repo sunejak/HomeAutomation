@@ -36,7 +36,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo $today
+# echo $today
 
 sunsetTime=$(date -d $(echo $today | jq -r .Sunset) "+%s")
 sunriseTime=$(date -d $(echo $today | jq -r .Sunrise) "+%s")
