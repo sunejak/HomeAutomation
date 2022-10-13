@@ -19,10 +19,12 @@ if [ $? -ne 0 ] ; then
   exit 1;
 fi
 # pick out the hours to be used
-sortedHour=$(echo $response | jq -r .sortedHour[0:"$hours"] | tr -d ',' | tr -d ']' | tr -d '[')
+sortedHours=$(echo $response | jq -r .sortedHour[0:"$hours"] | tr -d ',' | tr -d ']' | tr -d '[')
+#
+echo Hours to skip: $sortedHours
 # iterate over them
 n=0
-for val in $sortedHour; do
+for val in $sortedHours; do
   if [[ $val -eq $(date +%H) ]]
   then
     (( n++ ))
