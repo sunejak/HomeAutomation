@@ -12,7 +12,7 @@ if [ $? -ne 0 ] ; then
   exit 1;
 fi
 #
-today=$(echo $response | tr ' ' '\n' | grep $(date -I) )
+today=$(echo $response | sed "s/}/}\n/g" | grep $(date -I) | tail -1 )
 if [ $? -ne 0 ] ; then
   echo "Could not find data for today"
   exit 1;
