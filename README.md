@@ -67,7 +67,7 @@ If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the i
     # For more information see the manual pages of crontab(5) and cron(8)
     # 
     # m h  dom mon dow   command
-    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_onORoff_withCurl.sh http://192.168.1.26/electric.json 1.5 >> stdout.log
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_onORoffList_withCurl.sh http://192.168.1.26/electric.json 4 >> stdout.log
     */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_daylight_withCurl.sh http://192.168.1.26/suntime.json >> stdout.log
     */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_OutdoorLight_withCurl.sh  http://192.168.1.26/suntime.json "00:20" "05:50" >> stdout.log
     * * * * *	    cd /home/pi/2022/HomeAutomation/devices; ./make_json_generic.sh garage 1Wire 4 relayA 5 relayB > /mnt/ramdisk/temperature.json
