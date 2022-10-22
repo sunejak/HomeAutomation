@@ -1,12 +1,12 @@
 #!/bin/bash
 #
 if [ -z "$1" ]; then
-  echo "Provide a URL and a number og hours"
+  echo "Provide a URL and a number of hours"
   exit 1
 fi
 URL=$1
 if [ -z "$2" ]; then
-  echo "Provide how many hours to use"
+  echo "Provide how many hours to skip"
   exit 1
 fi
 hours=$2
@@ -25,7 +25,8 @@ echo Hours to skip: $sortedHours
 # iterate over them
 n=0
 for val in $sortedHours; do
-  if [[ $val -eq $(date +%H) ]]
+  # fix leading zero
+  if [[ $val -eq $(date +%H | bc ) ]]
   then
     (( n++ ))
   fi
