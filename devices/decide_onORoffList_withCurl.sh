@@ -26,7 +26,7 @@ echo Hours to skip: $sortedHours
 n=0
 for val in $sortedHours; do
   # fix leading zero
-  if [[ $val -eq $(date +%H | bc ) ]]
+  if [[ $val -eq $(date +%H | bc ) ]];
   then
     (( n++ ))
   fi
@@ -35,9 +35,9 @@ done
 gpio mode 3 output
 #
 if [ $n -gt 0 ]; then
-    echo Inside window $(date)
+    echo Inside skip window $(date)
     gpio write 3 1
   else
-    echo Outside window $(date)
+    echo Outside skip window $(date)
     gpio write 3 0
 fi
