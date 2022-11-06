@@ -72,5 +72,6 @@ If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the i
     */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_OutdoorLight_withCurl.sh  http://192.168.1.26/suntime.json "00:20" "05:50" >> stdout.log
     * * * * *	    cd /home/pi/2022/HomeAutomation/devices; ./make_json_generic.sh garage 1Wire 4 relayA 5 relayB > /mnt/ramdisk/temperature.json
     0 * * * *	    curl http://192.168.1.23/dummy.txt?device=garage
+    @reboot		    gpio mode 2 output; gpio mode 3 output; gpio mode 4 output; gpio mode 5 output; gpio write 2 1; gpio write 3 1; gpio write 4 1; gpio write 5 1;
 
 
