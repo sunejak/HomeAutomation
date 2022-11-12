@@ -36,8 +36,8 @@ gpio mode 3 output
 #
 if [ $n -gt 0 ]; then
     echo Inside skip window $(date)
-    gpio write 3 1
+    gpio write 3 0
   else
     echo Outside skip window $(date)
-    gpio write 3 0
+    gpio write 3 1
 fi
