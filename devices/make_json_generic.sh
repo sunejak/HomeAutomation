@@ -95,9 +95,11 @@ elif [[ $deviceType == "I2C" ]]; then
   adjTmp=$(($adjTmp >> 5))
   temperature=$(echo "scale=3; ($adjTmp * 0.1250) - $tmpNeg" | /usr/bin/bc | awk '{printf "%.2f\n", $0}')
   prev_temperature=$(tail -1 /mnt/ramdisk/last.json | jq -r .temperature)
+  diff_temp=$(echo "scale=3; $temperature - $prev_temperature" | /usr/bin/bc | awk '{printf "%.2f\n", $0}'")
     jq -c --null-input --arg ip "$ipaddress" --arg date "$dateString" \
      --arg type "$deviceType" --arg name "$deviceName" --arg tmp "$temperature" --arg prevtmp "$prev_temperature" \
-     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "prev": $prevtmp, "type": $type }'
+     --arg difftmp "$diff_temp" \
+     '{"name": $name, "IP": $ip, "date": $date, "temperature": $tmp, "prev": $prevtmp, "diff": $difftmp,"type": $type }'
 exit 0
 
 elif [[ $deviceType == "dummy" ]]; then
