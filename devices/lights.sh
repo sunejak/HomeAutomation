@@ -1,12 +1,16 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+  echo "Provide a JSON file"
+  exit 1
+fi
+URL=$1
+
 gpio mode 3 out
 gpio mode 4 out
 
-while true; do
-
-  diff=$(jq -r .diff temperature.json)
-  diffValue=$(echo "scale=0; $diff * 100" | /usr/bin/bc -l | awk '{printf "%.0f\n", $0}')
+  diff=$(jq -r .diff "${URL}")
+  diffValue=$(echo "scale=0; ${diff} * 100" | /usr/bin/bc -l | awk '{printf "%.0f\n", $0}')
   echo "$diffValue"
 
   if [[ $diffValue -gt 0 ]]; then
@@ -23,7 +27,3 @@ while true; do
     gpio write 3 0
     gpio write 4 0
   fi
-
-  sleep 10
-
-done

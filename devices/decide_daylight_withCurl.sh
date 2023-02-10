@@ -30,8 +30,8 @@ gpio mode 4 output
 #
 if [ $now -gt $startTime ] && [ $now -lt $stopTime ]; then
   echo Day light time $(date) Sunrise from: $(date --date=@$startTime) Sunset at:  $(date --date=@$stopTime)
-  gpio write 4 1
+  gpio write 4 0
   else
   echo Night time $(date) Sunrise from: $(date --date=@$startTime) Sunset at:  $(date --date=@$stopTime)
-  gpio write 4 0
+  gpio write 4 1
 fi
