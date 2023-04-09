@@ -17,7 +17,7 @@ fi
 # check number of entries
 #
 count=$(echo $celestialEvents | jq '.events | length')
-echo $count
+# echo $count
 #
 counter=0
 mySunrise=0
