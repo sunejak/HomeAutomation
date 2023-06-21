@@ -1,7 +1,7 @@
-#!/bin/bash
+!/bin/bash
 #
 # The StatusCode Field is only reported as numerical value.
-# Inverter is with fixed IP address at 192.168.1.30
+# Inverter is with fixed IP address at MAC address 00:03:ac:34:8d:d4
 #
 # 0 - 6 Startup 
 # 7     Running
