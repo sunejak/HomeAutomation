@@ -62,7 +62,7 @@
         let suntime = await getURL('http://192.168.1.26/suntime_today.json');
         console.log(suntime.Sunrise + ' ' + suntime.Sunset);
         let power = await getURL('http://192.168.1.26/electric_today.json');
-        console.log(power.maxHour + ' ' + power.minHour);
+        console.log(power);
 
         let html = '<div class="split left">';
         let now = new Date().getTime();
@@ -70,7 +70,7 @@
             <div class="split left">
 			<h4>Links</h4>
             <div class="text"><a href='http://192.168.1.23/suntime.log'>Sunrise (${suntime.Sunrise})<p>Sunset (${suntime.Sunset})</a></div>
-            <div class="text"><a href='http://192.168.1.26/electric.json'>Electric prices high (${power.sortedHour[0]}, ${power.sortedHour[1]}, ${power.sortedHour[2]}, ${power.sortedHour[3]}) low (${power.minHour})</a></div>
+            <div class="text"><a href='http://192.168.1.26/electric.json'>Electric prices high (${power.sortedHour[0]}, ${power.sortedHour[1]}, ${power.sortedHour[2]}, ${power.sortedHour[3]}) low (${power.sortedHour[23]})</a></div>
             <div class="plot"><img src="http://192.168.1.26/today.png?time=${now}" height="200" width="300" alt="plot of prices today"></div>
             <div class="plot"><img src="http://192.168.1.26/tomorrow.png?time=${now}" height="200" width="300" alt="plot of prices tomorrow"></div>
             <br>
@@ -80,7 +80,7 @@
             <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
             <br>
             <div class="text"><img src="http://192.168.1.23/fireplace.png?time=${now}" height="200" width="300" alt="plot of fireplace"></div>
-            <div class="plot"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
+//            <div class="plot"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
             `;
 
         html += htmlSegmentLeftLeft ;
