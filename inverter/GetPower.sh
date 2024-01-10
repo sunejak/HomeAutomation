@@ -9,7 +9,7 @@
 # 9     Boot loading
 # 10    Error 
 #
-resp=$(curl -s "http://192.168.1.103/solar_api/v1/GetInverterRealtimeData.cgi?Scope=Device&DataCollection=CommonInverterData&DeviceId=1" )
+resp=$(curl -s "http://192.168.1.104/solar_api/v1/GetInverterRealtimeData.cgi?Scope=Device&DataCollection=CommonInverterData&DeviceId=1" )
 if [ $? -ne 0 ] ; then
   echo "{ \"Body\" : { \"Data\" : { \"DAY_ENERGY\" : { \"Unit\" : \"Wh\", \"Value\" : -1.0 }, \"DeviceStatus\" : { \"StatusCode\" : -1 }}}, \"Head\" : {  \"Timestamp\" : \"$(date -I)\" } }"
   exit 1;
