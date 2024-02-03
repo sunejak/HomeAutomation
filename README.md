@@ -58,7 +58,7 @@ Add a crontab to read the temperature as often as needed. "* * * * *" is every m
 
 * sudo apt install jq   (needed for the scipts)
 
-* cd /mnt/ramdisk ;  /home/pi/2021/HomeAutomation/./make_json_generic.sh garage 1Wire 4 relayA 5 relayB > temperature.json
+* cd /mnt/ramdisk ;  /home/pi/2024/HomeAutomation/devices/make_json_generic.sh garage 1Wire 4 relayA 5 relayB > temperature.json
     
 Add a link for the webserver in the /var/www/html directory, you also need to fix some permissions.
 
