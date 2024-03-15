@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<link rel="stylesheet" href="styles.css">
-<script type="text/javascript" src="includeHTML.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="includeHTML.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="64">
     <title>Brannhaugen 17</title>
@@ -27,7 +27,7 @@
         let deviceListURL = '/devices.json';
         let deviceList = await getURL(deviceListURL);
         let deviceLength = deviceList.length;
-        console.log('Got: ' ,deviceList, '  with ', deviceLength, 'entries');
+        console.log('Got: ', deviceList, '  with ', deviceLength, 'entries');
 
         let inverterURL = '/inverter.json'
         let inverter = await getURL(inverterURL);
@@ -83,66 +83,66 @@
 //            <div class="plot"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
             `;
 
-        html += htmlSegmentLeftLeft ;
+        html += htmlSegmentLeftLeft;
         html += '</div>';
 
         // loop through the device list
         let htmlSegmentLeftRight = `<div class="split mid">`;
-        for (let i = 0; i < deviceLength; i++){
+        for (let i = 0; i < deviceLength; i++) {
             let deviceURL = 'http://' + deviceList[i].address + '/temperature.json';
             let response = await getURL(deviceURL);
             console.log(response);
 
             let htmlSegmentBuild = `<div class="text">${deviceList[i].name}&nbsp; ${response.date}</div>`
 
-	    if(response.hasOwnProperty('IP')){
+            if (response.hasOwnProperty('IP')) {
                 htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
             }
 
-            if(response.hasOwnProperty('temperature')){
-                htmlSegmentBuild += `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;</div>`;
-            
-            	if(response.hasOwnProperty('prev')){
-                	if(response.prev > 0){
-                    	htmlSegmentBuild += `Rising`;
-                	}
-                	if(response.prev < 0){
-                    	htmlSegmentBuild += `Sinking`;
-                	}
-            	}
-		htmlSegmentBuild += `</div>`;    
-	    }
-            if(response.hasOwnProperty('IP')){
+            if (response.hasOwnProperty('temperature')) {
+                htmlSegmentBuild += `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;`;
+
+                if (response.hasOwnProperty('prev')) {
+                    if (response.prev > 0) {
+                        htmlSegmentBuild += `Rising`;
+                    }
+                    if (response.prev < 0) {
+                        htmlSegmentBuild += `Sinking`;
+                    }
+                }
+                htmlSegmentBuild += `</div>`;
+            }
+            if (response.hasOwnProperty('IP')) {
                 htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
             }
-            if(response.hasOwnProperty('motorA')){
+            if (response.hasOwnProperty('motorA')) {
                 htmlSegmentBuild += `<div class="motor">Motor A <a href=${deviceURL}>${response.motorA}</a></div>`;
             }
-            if(response.hasOwnProperty('motorB')){
+            if (response.hasOwnProperty('motorB')) {
                 htmlSegmentBuild += `<div class="motor">Motor B <a href=${deviceURL}>${response.motorB}</a></div>`;
             }
-            if(response.hasOwnProperty('pinA')){
+            if (response.hasOwnProperty('pinA')) {
                 htmlSegmentBuild += `<div class="pin">Pin A <a href=${deviceURL}>${response.pinA}</a></div>`;
             }
-            if(response.hasOwnProperty('pinB')){
+            if (response.hasOwnProperty('pinB')) {
                 htmlSegmentBuild += `<div class="pin">Pin B <a href=${deviceURL}>${response.pinB}</a></div>`;
             }
-            if(response.hasOwnProperty('relayA')){
+            if (response.hasOwnProperty('relayA')) {
                 htmlSegmentBuild += `<div class="pin">Relay A <a href=${deviceURL}>${response.relayA}</a></div>`;
             }
-            if(response.hasOwnProperty('relayB')){
+            if (response.hasOwnProperty('relayB')) {
                 htmlSegmentBuild += `<div class="pin">Relay B <a href=${deviceURL}>${response.relayB}</a></div>`;
             }
-            if(response.hasOwnProperty('fan')){
+            if (response.hasOwnProperty('fan')) {
                 htmlSegmentBuild += `<div class="motor">Fan <a href=${deviceURL}>${response.fan}</a></div>`;
             }
-            if(response.hasOwnProperty('power')){
+            if (response.hasOwnProperty('power')) {
                 htmlSegmentBuild += `<div class="motor">Power <a href=${deviceURL}>${response.power}</a></div>`;
             }
-            if(response.hasOwnProperty('daylight')){
+            if (response.hasOwnProperty('daylight')) {
                 htmlSegmentBuild += `<div class="pin">Daylight <a href=${deviceURL}>${response.daylight}</a></div>`;
             }
-            if(response.hasOwnProperty('io')){
+            if (response.hasOwnProperty('io')) {
                 let ioLength = response.io.length;
                 for (let j = 0; j < ioLength; j++) {
                     for (const [key, value] of Object.entries(response.io[j])) {
@@ -167,6 +167,7 @@
         let container = document.querySelector('.container');
         container.innerHTML = html;
     }
+
     renderUsers();
 </script>
 </body>
