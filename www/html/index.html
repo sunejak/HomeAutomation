@@ -98,22 +98,18 @@
             if (response.hasOwnProperty('IP')) {
                 htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
             }
-
             if (response.hasOwnProperty('temperature')) {
                 htmlSegmentBuild += `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;`;
 
                 if (response.hasOwnProperty('prev')) {
                     if (response.prev > 0) {
-                        htmlSegmentBuild += `Rising`;
+                        htmlSegmentBuild += `&nbsp; Rising`;
                     }
                     if (response.prev < 0) {
-                        htmlSegmentBuild += `Sinking`;
+                        htmlSegmentBuild += `&nbsp; Sinking`;
                     }
                 }
                 htmlSegmentBuild += `</div>`;
-            }
-            if (response.hasOwnProperty('IP')) {
-                htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
             }
             if (response.hasOwnProperty('motorA')) {
                 htmlSegmentBuild += `<div class="motor">Motor A <a href=${deviceURL}>${response.motorA}</a></div>`;
