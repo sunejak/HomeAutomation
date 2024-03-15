@@ -102,10 +102,10 @@
                 htmlSegmentBuild += `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;`;
 
                 if (response.hasOwnProperty('prev')) {
-                    if (response.prev > 0) {
+                    if ((response.temperature - response.prev) > 0) {
                         htmlSegmentBuild += `&nbsp; Rising`;
                     }
-                    if (response.prev < 0) {
+                    if ((response.temperature - response.prev) < 0) {
                         htmlSegmentBuild += `&nbsp; Sinking`;
                     }
                 }
