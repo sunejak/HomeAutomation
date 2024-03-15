@@ -95,17 +95,23 @@
 
             let htmlSegmentBuild = `<div class="text">${deviceList[i].name}&nbsp; ${response.date}</div>`
 
+	    if(response.hasOwnProperty('IP')){
+                htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
+            }
+
             if(response.hasOwnProperty('temperature')){
                 htmlSegmentBuild += `<div class="temperature">Temperature <a href=${deviceURL}>${response.temperature}</a> &#8451;</div>`;
-            }
-            if(response.hasOwnProperty('prev')){
-                if(response.prev > 0){
-                    htmlSegmentBuild += `<div class="pin">Rising</div>`;
-                }
-                if(response.prev < 0){
-                    htmlSegmentBuild += `<div class="pin">Sinking</div>`;
-                }
-            }
+            
+            	if(response.hasOwnProperty('prev')){
+                	if(response.prev > 0){
+                    	htmlSegmentBuild += `Rising`;
+                	}
+                	if(response.prev < 0){
+                    	htmlSegmentBuild += `Sinking`;
+                	}
+            	}
+		htmlSegmentBuild += `</div>`;    
+	    }
             if(response.hasOwnProperty('IP')){
                 htmlSegmentBuild += `<div class="pin">IP <a href=${deviceURL}>${response.IP}</a></div>`;
             }
