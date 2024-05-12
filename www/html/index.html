@@ -29,10 +29,10 @@
         let deviceLength = deviceList.length;
         console.log('Got: ', deviceList, '  with ', deviceLength, 'entries');
 
-        let powerURL = '/current_power.json'
+        let powerURL = 'http://192.168.1.26/current_power.json'
         let currentPower = await  getURL(powerURL);
 
-        let inverterURL = 'http://192.168.1.26/inverter.json'
+        let inverterURL = '/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
         inverter.currentPower = '';
