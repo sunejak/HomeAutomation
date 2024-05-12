@@ -32,7 +32,7 @@
         let powerURL = '/current_power.json'
         let currentPower = await  getURL(powerURL);
 
-        let inverterURL = '/inverter.json'
+        let inverterURL = 'http://192.168.1.26/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
         inverter.currentPower = '';
