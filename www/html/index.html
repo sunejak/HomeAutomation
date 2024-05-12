@@ -29,6 +29,9 @@
         let deviceLength = deviceList.length;
         console.log('Got: ', deviceList, '  with ', deviceLength, 'entries');
 
+        let powerURL = '/current_power.json'
+        let currentPower = await  getURL(powerURL);
+
         let inverterURL = '/inverter.json'
         let inverter = await getURL(inverterURL);
         console.log(inverter);
@@ -74,13 +77,15 @@
             <div class="plot"><img src="http://192.168.1.26/today_Trondheim.png?time=${now}" height="200" width="300" alt="plot of prices today"></div>
             <div class="plot"><img src="http://192.168.1.26/tomorrow_Trondheim.png?time=${now}" height="200" width="300" alt="plot of prices tomorrow"></div>
             <br>
+            <h5>Power usage ${currentPower.timestamp}</h5>
+            <div class="inverter">Current Usage ${currentPower.active_power_w}</div>
+            <br>
             <h5>Inverter ${inverter.Head.Timestamp}</h5>
             <div class="inverter">Status ${inverter.text}</div>
-            <div class="inverter">Current Power ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
+            <div class="inverter">Current Power production ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
             <div class="inverter">Todays production ${inverter.dayEnergy} ${inverter.dayEnergyUnit}</div>
             <br>
             <div class="text"><img src="http://192.168.1.23/fireplace.png?time=${now}" height="200" width="300" alt="plot of fireplace"></div>
-//            <div class="plot"><img src="http://192.168.1.23/plot.png?time=${now}" height="200" width="300" alt="plot of prices"></div>
             `;
 
         html += htmlSegmentLeftLeft;
