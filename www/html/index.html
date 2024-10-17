@@ -73,13 +73,16 @@
             <div class="split left">
 			<h4>Links</h4>
             <div class="text"><a href='http://192.168.1.23/suntime.log'>Sunrise (${suntime.Sunrise})<p>Sunset (${suntime.Sunset})</p></a></div>
-            <div class="text"><a href='http://192.168.1.26/electric.json'>Electric prices high (${power.sortedHour[0]}, ${power.sortedHour[1]}, ${power.sortedHour[2]}, ${power.sortedHour[3]}) low (${power.sortedHour[23]})</a></div>
+            <div class="text"><a href='http://192.168.1.26/electric.json'>Electric prices
+            high (${power.sortedHour[0]},${power.sortedHour[1]}, ${power.sortedHour[2]}, ${power.sortedHour[3]})
+            low (${power.sortedHour[22]}, ${power.sortedHour[21]}, ${power.sortedHour[22]}, ${power.sortedHour[23]})</a></div>
             <div class="plot"><img src="http://192.168.1.26/today_Trondheim.png?time=${now}" height="200" width="300" alt="plot of prices today"></div>
             <div class="plot"><img src="http://192.168.1.26/tomorrow_Trondheim.png?time=${now}" height="200" width="300" alt="plot of prices tomorrow"></div>
-            <br>
+            `;
+        let htmlSegmentLeftRest = `
             <h5>Power usage ${currentPower.timestamp}</h5>
-            <div class="inverter">Current Usage ${currentPower.active_power_w} W</div>
-            <br>
+            <div class="inverter">Current Usage ${currentPower.active_power_w} W</div>';
+            
             <h5>Inverter ${inverter.Head.Timestamp}</h5>
             <div class="inverter">Status ${inverter.text}</div>
             <div class="inverter">Current Power production ${inverter.currentPower} ${inverter.currentPowerUnit}</div>
@@ -88,7 +91,7 @@
             <div class="text"><img src="http://192.168.1.23/fireplace.png?time=${now}" height="200" width="300" alt="plot of fireplace"></div>
             `;
 
-        html += htmlSegmentLeftLeft;
+        html += htmlSegmentLeftLeft + htmlSegmentLeftRest;
         html += '</div>';
 
         // loop through the device list

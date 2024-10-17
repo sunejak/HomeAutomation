@@ -11,31 +11,30 @@ Some controller configurations need temporary storage, so to create a RAM disk, 
 
 Create a mount point:
 
-* sudo mkdir /mnt/ramdisk
+    sudo mkdir /mnt/ramdisk
 
 Add it into /etc/fstab, so that a RAM disk is automatically generated upon startup:
 
-* sudo vi /etc/fstab
-
-* Add: "tmpfs /mnt/ramdisk tmpfs nodev,nosuid,size=2M 0 0" at the end of the file.
+    sudo vi /etc/fstab
+    Add: "tmpfs /mnt/ramdisk tmpfs nodev,nosuid,size=2M 0 0" at the end of the file.
 
 To enable one wire interface
 
-* sudo raspi-config   (Interface Options -> enable 1Wire)
-* cat /boot/config.txt   
-* sudo modprobe w1-gpio
-* sudo modprobe w1-therm
-* cat /sys/bus/w1/devices/28-3c01d607f0b0/temperature  (check that your 1Wire device shows)
+    sudo raspi-config   (Interface Options -> enable 1Wire)
+    cat /boot/config.txt   
+    sudo modprobe w1-gpio
+    sudo modprobe w1-therm
+    cat /sys/bus/w1/devices/28-3c01d607f0b0/temperature  (check that your 1Wire device shows)
 
 For RPi4 you need to do this in order to access the IO pins:
 
-* cd /tmp
-* wget https://project-downloads.drogon.net/wiringpi-latest.deb
-* sudo dpkg -i wiringpi-latest.deb
+    cd /tmp
+    wget https://project-downloads.drogon.net/wiringpi-latest.deb
+    sudo dpkg -i wiringpi-latest.deb
 
 Then install a webserver, so that you can read the values over HTTP
 
-* sudo apt install nginx
+    sudo apt install nginx
 
 Configure the webserver for local access, by adding this in the nginx configuration "/etc/nginx/sites-available/default" file, inside the "location" directive:
 
@@ -52,17 +51,17 @@ Configure the webserver for local access, by adding this in the nginx configurat
       return 200;
     }
     
-* To restart: "sudo systemctl restart nginx"
+    To restart: "sudo systemctl restart nginx"
 
 Add a crontab to read the temperature as often as needed. "* * * * *" is every minute.
 
-* sudo apt install jq   (needed for the scipts)
+    sudo apt install jq   (needed for the scipts)
 
-* cd /mnt/ramdisk ;  /home/pi/2024/HomeAutomation/devices/make_json_generic.sh garage 1Wire 4 relayA 5 relayB > temperature.json
+    cd /mnt/ramdisk ;  /home/pi/2024/HomeAutomation/devices/make_json_generic.sh garage 1Wire 4 relayA 5 relayB > temperature.json
     
 Add a link for the webserver in the /var/www/html directory, you also need to fix some permissions.
 
-* sudo ln -s /mnt/ramdisk/temperature.json
+    sudo ln -s /mnt/ramdisk/temperature.json
 
 If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the issue.
 
@@ -78,6 +77,6 @@ If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the i
 
 If you need your device to report home:
 
-* curl -s "https://example.org/?name=$(jq -r .name /mnt/ramdisk/temperature.json)&temperature=$(jq -r .temperature /mnt/ramdisk/temperature.json)&state=$(jq -r .io[0].relayA  /mnt/ramdisk/temperature.json)"
+    curl -s "https://example.org/?name=$(jq -r .name /mnt/ramdisk/temperature.json)&temperature=$(jq -r .temperature /mnt/ramdisk/temperature.json)&state=$(jq -r .io[0].relayA  /mnt/ramdisk/temperature.json)"
 
-But if you run a RPI, be aware that jq has some timing issues, so the cron file need a few seconds rest befor issuing the cron call. (sleep 20)
+But if you run a RPI, be aware that jq has some timing issues, so the cron file needs a few seconds rest before issuing the cron call. (sleep 20)
