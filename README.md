@@ -69,9 +69,15 @@ If you have issues with crontab, try adding a 2>&1 maybe PATH or access is the i
     # For more information see the manual pages of crontab(5) and cron(8)
     # 
     # m h  dom mon dow   command
-    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_onORoffList_withCurl.sh http://192.168.1.26/electric.json 4 >> stdout.log
-    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_daylight_withCurl.sh http://192.168.1.26/suntime.json >> stdout.log
-    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_OutdoorLight_withCurl.sh  http://192.168.1.26/suntime.json "00:20" "05:50" >> stdout.log
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_onORoffList_withCurl.sh http://example.org/electric.json 4 >> stdout.log
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_daylight_withCurl.sh http://example.org/suntime.json >> stdout.log
+    */5 * * * * 	cd /home/pi/2022/HomeAutomation/devices; ./decide_OutdoorLight_withCurl.sh  http://example.org/suntime.json "00:20" "05:50" >> stdout.log
     * * * * *	    cd /home/pi/2022/HomeAutomation/devices; ./make_json_generic.sh garage 1Wire 4 relayA 5 relayB > /mnt/ramdisk/temperature.json
-    0 * * * *	    curl http://192.168.1.23/dummy.txt?device=garage
+    0 * * * *	    curl http://example.org/dummy.txt?device=garage
     @reboot		    gpio mode 2 output; gpio mode 3 output; gpio mode 4 output; gpio mode 5 output; gpio write 2 1; gpio write 3 1; gpio write 4 1; gpio write 5 1;
+
+If you need your device to report home:
+
+* curl -s "https://example.org/?name=$(jq -r .name /mnt/ramdisk/temperature.json)&temperature=$(jq -r .temperature /mnt/ramdisk/temperature.json)&state=$(jq -r .io[0].relayA  /mnt/ramdisk/temperature.json)"
+
+But if you run a RPI, be aware that jq has some timing issues, so the cron file need a few seconds rest befor issuing the cron call. (sleep 20)
