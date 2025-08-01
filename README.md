@@ -26,11 +26,9 @@ To enable one wire interface
     sudo modprobe w1-therm
     cat /sys/bus/w1/devices/28-3c01d607f0b0/temperature  (check that your 1Wire device shows)
 
-For RPi4 you need to do this in order to access the IO pins:
+For any RPi you need to do this in order to access the IO pins:
 
-    cd /tmp
-    wget https://project-downloads.drogon.net/wiringpi-latest.deb
-    sudo dpkg -i wiringpi-latest.deb
+    https://github.com/WiringPi/WiringPi
 
 Then install a webserver, so that you can read the values over HTTP
 
